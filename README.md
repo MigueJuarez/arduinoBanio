@@ -1,4 +1,4 @@
-# Sistemas Operativos Avanzados 2° Cuatrimestre de 2022
+# Baño Inteligente
 
 <sup> 
 En el presente trabajo se propone presentar una solución innovadora a la problemática que representa la higiene en instalaciones sanitarias de acceso masivo. Estableciendo, que disponer de condiciones adecuadas para el uso no solo se trata de una cuestión de experiencia de usuario, sino también de salud pública, por lo que se ideó un prototipo que incorpora la electrónica para mejorar la información disponible sobre el estado actual de limpieza de un baño y la gestión eficiente de solicitudes de aseo a los mismos, optimizando el empleo de recursos destinados a tal fin, ya sea en edificios o eventos multitudinarios.
@@ -10,8 +10,6 @@ En el presente trabajo se propone presentar una solución innovadora a la proble
     Juarez Miguel 
     Ojeda Juan 
     Stermann Axel
-
-
 
 #### Introducción
 El proyecto consiste fundamentalmente en el diseño y construcción de un sistema embebido que, mediante la interacción de determinados sensores y actuadores junto a la implementación de la lógica de negocio correcta, permite monitorear y comunicar de forma fehaciente el estado de higiene de un baño al usuario final (personas físicas) como así también solicitar la asistencia del personal asignado a las tareas de limpieza.
@@ -50,4 +48,6 @@ Este  trabajo  debe  seguir  un  conjunto  de  pautas,  estas  van  desde  el  d
   - Entregar  el  informe por  plataforma  MIeL.  Este  debe  ser  en formato  .pdf,  con nombre TP1_DiaCursada_NumerodelGrupo.pdf.
   - Desarrollar  el  informe  en  formato  paper.  Que  contenga  las  secciones  de encabezado,   introducción,   desarrollo   y   bibliografía.   El   formato   del   paper solicitado se muestra en el siguiente enlace:
     https://www.dropbox.com/s/2d7whc9sxi2o8ml/00_EstructuraPaper_cacicTP1.doc?dl=0
-    
+
+
+###### Sistemas Operativos Avanzados - 2° Cuatrimestre de 2022
