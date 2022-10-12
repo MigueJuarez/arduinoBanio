@@ -1,5 +1,8 @@
 # Sistemas Operativos Avanzados 2° Cuatrimestre de 2022
-En el presente trabajo se propone presentar una solución innovadora a la problemática que representa la higiene en instalaciones sanitarias de acceso masivo. Estableciendo que disponer de condiciones adecuadas para el uso no solo se trata de una cuestión de experiencia de usuario sino también de salud pública, se ideó un prototipo que incorpora la electrónica para mejorar la información disponible sobre el estado actual de limpieza de un baño y la gestión eficiente de solicitudes de aseo a los mismos, optimizando el empleo de recursos destinados a tal fin ya sea en edificios o eventos multitudinarios.
+
+<sup> 
+En el presente trabajo se propone presentar una solución innovadora a la problemática que representa la higiene en instalaciones sanitarias de acceso masivo. Estableciendo, que disponer de condiciones adecuadas para el uso no solo se trata de una cuestión de experiencia de usuario, sino también de salud pública, por lo que se ideó un prototipo que incorpora la electrónica para mejorar la información disponible sobre el estado actual de limpieza de un baño y la gestión eficiente de solicitudes de aseo a los mismos, optimizando el empleo de recursos destinados a tal fin, ya sea en edificios o eventos multitudinarios.
+</sup>
 
 ### Integrantes:
     Bobbio Federico  
