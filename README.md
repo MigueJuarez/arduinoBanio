@@ -1,11 +1,27 @@
-## Sistemas Operativos Avanzados - Año: 2022 2° Cuatrimestre
+# Sistemas Operativos Avanzados 2° Cuatrimestre de 2022
+En el presente trabajo se propone presentar una solución innovadora a la problemática que representa la higiene en instalaciones sanitarias de acceso masivo. Estableciendo que disponer de condiciones adecuadas para el uso no solo se trata de una cuestión de experiencia de usuario sino también de salud pública, se ideó un prototipo que incorpora la electrónica para mejorar la información disponible sobre el estado actual de limpieza de un baño y la gestión eficiente de solicitudes de aseo a los mismos, optimizando el empleo de recursos destinados a tal fin ya sea en edificios o eventos multitudinarios.
 
 ### Integrantes:
-- Bobbio Federico  
-- Camejo Luciano 
-- Juarez Miguel 
-- Ojeda Juan 
-- Stermann Axel  
+    Bobbio Federico  
+    Camejo Luciano 
+    Juarez Miguel 
+    Ojeda Juan 
+    Stermann Axel
+
+
+
+#### Introducción
+El proyecto consiste fundamentalmente en el diseño y construcción de un sistema embebido que, mediante la interacción de determinados sensores y actuadores junto a la implementación de la lógica de negocio correcta, permite monitorear y comunicar de forma fehaciente el estado de higiene de un baño al usuario final (personas físicas) como así también solicitar la asistencia del personal asignado a las tareas de limpieza.
+
+En el código fuente se utiliza el patrón de diseño de máquina de estados.
+
+Link de acceso a la versión simulada en la plataforma Tinkercad: https://www.tinkercad.com/things/cSQm86Yjjdw
+
+#### Bibliografía
+ - https://naylampmechatronics.com/blog/35_tutorial-lcd-con-i2c-controla-un-lcd-con-solodos-pines.html
+
+
+## Enunciado
 
 ### Objetivo
 El  objetivo  de  este  trabajo  práctico  es  ofrecer  la  oportunidad de aprender  conceptos teóricos y su aplicación práctica sobre sistemas embebidos aplicados a internet de las cosas (IoT) o Sistemas ciber físicos (CPS).
