@@ -14,9 +14,9 @@ En el presente trabajo se propone presentar una solución innovadora a la proble
 #### Introducción
 El proyecto consiste fundamentalmente en el diseño y construcción de un sistema embebido que, mediante la interacción de determinados sensores y actuadores junto a la implementación de la lógica de negocio correcta, permite monitorear y comunicar de forma fehaciente el estado de higiene de un baño al usuario final (personas físicas) como así también solicitar la asistencia del personal asignado a las tareas de limpieza.
 
-En el código fuente se utiliza el patrón de diseño de máquina de estados.
+En el código fuente se utiliza el patrón de diseño de *máquina de estados*.
 
-Link de acceso a la versión simulada en la plataforma Tinkercad: https://www.tinkercad.com/things/cSQm86Yjjdw
+Link de acceso a la versión simulada en la plataforma Tinkercad: [Baño Inteligente](https://www.tinkercad.com/things/cSQm86Yjjdw)
 
 #### Bibliografía
  - https://naylampmechatronics.com/blog/35_tutorial-lcd-con-i2c-controla-un-lcd-con-solodos-pines.html
