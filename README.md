@@ -16,7 +16,7 @@ El proyecto consiste fundamentalmente en el diseño y construcción de un sistem
 
 En el código fuente se utiliza el patrón de diseño de *máquina de estados*.
 
-Link de acceso a la versión simulada en la plataforma Tinkercad: [Baño Inteligente](https://www.tinkercad.com/things/cSQm86Yjjdw)
+Link de acceso a la versión simulada en la plataforma **Tinkercad**: [Baño Inteligente](https://www.tinkercad.com/things/cSQm86Yjjdw)
 
 #### Bibliografía
  - https://naylampmechatronics.com/blog/35_tutorial-lcd-con-i2c-controla-un-lcd-con-solodos-pines.html
