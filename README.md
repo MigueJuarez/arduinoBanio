@@ -19,7 +19,7 @@ En el código fuente se utiliza el patrón de diseño de *máquina de estados*.
 Link de acceso a la versión simulada en la plataforma **Tinkercad**: [Baño Inteligente](https://www.tinkercad.com/things/cSQm86Yjjdw)
 
 #### Bibliografía
- - [SOA WIKI](https://www.so-unlam.com.ar/wiki/index.php/PUBLICO:Portada)
+ - [SOA Wiki](https://www.so-unlam.com.ar/wiki/index.php/PUBLICO:Portada)
  - [Tutorial LCD con I2C, controla un LCD con solo dos pines](https://naylampmechatronics.com/blog/35_tutorial-lcd-con-i2c-controla-un-lcd-con-solodos-pines.html)
 
 
