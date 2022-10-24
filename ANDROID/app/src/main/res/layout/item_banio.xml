@@ -16,7 +16,7 @@
             android:id="@+id/llItemBanio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#4B5252E1"
+            android:background="#BC0ECCB6"
             android:clipToPadding="false"
             android:onClick="goToDetail"
             android:orientation="horizontal"
@@ -28,10 +28,10 @@
 
             <ImageView
                 android:id="@+id/ivItemBanio"
-                android:layout_width="140dp"
-                android:layout_height="129dp"
-                android:layout_margin="1dp"
-                app:srcCompat="@drawable/banio" />
+                android:layout_width="111dp"
+                android:layout_height="102dp"
+                android:layout_margin="10dp"
+                app:srcCompat="@drawable/banio_risa" />
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -50,11 +50,11 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="210dp"
-        android:layout_height="61dp"
+        android:layout_width="341dp"
+        android:layout_height="58dp"
         android:layout_marginTop="52dp"
         android:fontFamily="sans-serif-black"
-        android:text="TP BAÑO "
+        android:text="Arduino Baño "
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#000000"

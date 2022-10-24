@@ -19,7 +19,9 @@ public class ThreadAsyncTaskBanioList extends AsyncTask {
             new BanioItem("Baño 1 Piso", "Muy Sucio"),
             new BanioItem("Baño 2 Piso", "Sucio"),
             new BanioItem("Baño 3 Piso", "Sucio"),
-            new BanioItem("Baño 4 Piso", "Muy Sucio")
+            new BanioItem("Baño 4 Piso", "Muy Sucio"),
+            new BanioItem("Baño 5 Piso", "Limpio"),
+            new BanioItem("Baño 6 Piso", "Muy Sucio")
     );
 
     @Override

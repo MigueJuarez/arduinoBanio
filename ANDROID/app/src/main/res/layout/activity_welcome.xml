@@ -25,11 +25,11 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="210dp"
+        android:layout_width="337dp"
         android:layout_height="61dp"
         android:layout_marginTop="52dp"
         android:fontFamily="sans-serif-black"
-        android:text="TP BAÑO "
+        android:text="Arduino Baño "
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#000000"
