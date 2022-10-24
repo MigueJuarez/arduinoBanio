@@ -1,7 +1,6 @@
 package com.example.arduinobanio;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,11 +17,11 @@ import java.util.List;
 public class ListaBanios extends AppCompatActivity {
 
     List<BanioItem> banios = Arrays.asList(
-            new BanioItem("BAÑO CENTRAL", "LIMPIO", "![](../../../../res/drawable-v24/banio.png)"),
-            new BanioItem("BAÑO 1 Piso", "SUCIO", "![](../../../../res/drawable-v24/banio.png)"),
-            new BanioItem("BAÑO 2 Piso", "SUCIO", "![](../../../../res/drawable-v24/banio.png)"),
-            new BanioItem("BAÑO 3 Piso", "SUCIO", "![](../../../../res/drawable-v24/banio.png)"),
-            new BanioItem("BAÑO 4 Piso", "SUCIO", "![](../../../../res/drawable-v24/banio.png)")
+            new BanioItem("Baño Central", "Limpio"),
+            new BanioItem("Baño 1 Piso", "Muy Sucio"),
+            new BanioItem("Baño 2 Piso", "Sucio"),
+            new BanioItem("Baño 3 Piso", "Sucio"),
+            new BanioItem("Baño 4 Piso", "Muy Sucio")
     );
 
     @Override
@@ -33,12 +32,9 @@ public class ListaBanios extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        DividerItemDecoration decoration = new DividerItemDecoration(this, manager.getOrientation());
         RecyclerView recyclerView = findViewById(R.id.rvListaBanios);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new BanioAdapter(banios));
-        // recyclerView.addItemDecoration(decoration);
     }
 
     public void goToWelcome(View view) {
@@ -49,9 +45,5 @@ public class ListaBanios extends AppCompatActivity {
     public void goToDetail(View view) {
         Intent goToDetail = new Intent(this, BanioDetalle.class);
         startActivity(goToDetail);
-    }
-
-    public void buscar(View view) {
-
     }
 }
