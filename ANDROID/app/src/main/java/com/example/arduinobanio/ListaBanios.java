@@ -1,28 +1,17 @@
 package com.example.arduinobanio;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.arduinobanio.recyclerView.BanioItem;
-import com.example.arduinobanio.recyclerView.adapter.BanioAdapter;
+import com.example.arduinobanio.thread.ThreadAsyncTaskBanioList;
 
-import java.util.Arrays;
-import java.util.List;
 
 public class ListaBanios extends AppCompatActivity {
-
-    List<BanioItem> banios = Arrays.asList(
-            new BanioItem("Baño Central", "Limpio"),
-            new BanioItem("Baño 1 Piso", "Muy Sucio"),
-            new BanioItem("Baño 2 Piso", "Sucio"),
-            new BanioItem("Baño 3 Piso", "Sucio"),
-            new BanioItem("Baño 4 Piso", "Muy Sucio")
-    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +22,8 @@ public class ListaBanios extends AppCompatActivity {
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.rvListaBanios);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new BanioAdapter(banios));
+        ThreadAsyncTaskBanioList thread = new ThreadAsyncTaskBanioList();
+        thread.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, recyclerView, this);
     }
 
     public void goToWelcome(View view) {

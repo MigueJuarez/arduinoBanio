@@ -22,4 +22,9 @@ public class BanioDetalle extends AppCompatActivity {
     public void finalizarLimpieza(View view) {
         Toast.makeText(view.getContext(), "Limpieza finalizada",Toast.LENGTH_SHORT).show();
     }
+
+    public void goToList(View view) {
+        Intent goToList = new Intent(this, ListaBanios.class);
+        startActivity(goToList);
+    }
 }
