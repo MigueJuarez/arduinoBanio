@@ -15,13 +15,13 @@ import java.util.List;
 public class ThreadAsyncTaskBanioList extends AsyncTask {
 
     List<BanioItem> banios = Arrays.asList(
-            new BanioItem("Baño Central", "Limpio"),
-            new BanioItem("Baño 1 Piso", "Muy Sucio"),
-            new BanioItem("Baño 2 Piso", "Sucio"),
-            new BanioItem("Baño 3 Piso", "Sucio"),
-            new BanioItem("Baño 4 Piso", "Muy Sucio"),
-            new BanioItem("Baño 5 Piso", "Limpio"),
-            new BanioItem("Baño 6 Piso", "Muy Sucio")
+            new BanioItem("Planta Baja", "Sucio"),
+            new BanioItem("Primer Piso", "Muy Sucio"),
+            new BanioItem("Segundo Piso", "Limpio"),
+            new BanioItem("Tercer Piso", "Sucio"),
+            new BanioItem("Terraza", "Limpio"),
+            new BanioItem("Patio Comidas", "Muy Sucio"),
+            new BanioItem("Cuarto Piso", "Muy Sucio")
     );
 
     @Override
