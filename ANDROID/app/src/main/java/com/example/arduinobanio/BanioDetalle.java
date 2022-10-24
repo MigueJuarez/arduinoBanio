@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class BanioDetalle extends AppCompatActivity {
 
@@ -15,17 +16,10 @@ public class BanioDetalle extends AppCompatActivity {
     }
 
     public void iniciarLimpieza(View view) {
-        Intent goToHome = new Intent(this, Welcome.class);
-        startActivity(goToHome);
+        Toast.makeText(view.getContext(), "Solicitud de limpieza aceptada",Toast.LENGTH_SHORT).show();
     }
 
     public void finalizarLimpieza(View view) {
-        Intent goToHome = new Intent(this, Welcome.class);
-        startActivity(goToHome);
-    }
-
-    public void goToList(View view) {
-        Intent goToList = new Intent(this, ListaBanios.class);
-        startActivity(goToList);
+        Toast.makeText(view.getContext(), "Limpieza finalizada",Toast.LENGTH_SHORT).show();
     }
 }
