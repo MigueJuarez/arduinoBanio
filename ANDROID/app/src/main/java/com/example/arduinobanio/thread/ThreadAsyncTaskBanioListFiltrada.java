@@ -10,19 +10,14 @@ import com.example.arduinobanio.recyclerView.BanioItem;
 import com.example.arduinobanio.recyclerView.adapter.BanioAdapter;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
-public class ThreadAsyncTaskBanioList extends AsyncTask {
+public class ThreadAsyncTaskBanioListFiltrada extends AsyncTask {
 
-    List<BanioItem> banios = Arrays.asList(
-            new BanioItem("Planta Baja", "Sucio"),
-            new BanioItem("Primer Piso", "Muy Sucio"),
-            new BanioItem("Segundo Piso", "Limpio"),
-            new BanioItem("Tercer Piso", "Sucio"),
-            new BanioItem("Terraza", "Limpio"),
-            new BanioItem("Patio Comidas", "Muy Sucio"),
-            new BanioItem("Cuarto Piso", "Muy Sucio")
+    List<BanioItem> banios = Collections.singletonList(
+            new BanioItem("Planta Baja", "Sucio")
     );
 
     @Override

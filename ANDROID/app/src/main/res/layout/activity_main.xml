@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".MainActivity">
 
     <Button
@@ -11,6 +12,7 @@
         android:layout_width="178dp"
         android:layout_height="42dp"
         android:layout_marginBottom="60dp"
+        android:backgroundTint="@color/buttons"
         android:onClick="goToWelcome"
         android:text="Ingresar"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,11 +55,11 @@
         android:layout_width="341dp"
         android:layout_height="58dp"
         android:layout_marginTop="52dp"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="sans-serif-condensed"
         android:text="Arduino Baño "
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#000000"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/buttons"
         android:textSize="48sp"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"

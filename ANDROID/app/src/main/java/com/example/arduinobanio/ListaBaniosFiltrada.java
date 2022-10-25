@@ -11,14 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.example.arduinobanio.thread.ThreadAsyncTaskBanioList;
+import com.example.arduinobanio.thread.ThreadAsyncTaskBanioListFiltrada;
 
-
-public class ListaBanios extends AppCompatActivity {
+public class ListaBaniosFiltrada extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_banios);
+        setContentView(R.layout.activity_lista_banios_filtrada);
         initSpinnerStatus();
         initRecyclerView();
     }
@@ -34,7 +34,7 @@ public class ListaBanios extends AppCompatActivity {
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.rvListaBanios);
-        ThreadAsyncTaskBanioList thread = new ThreadAsyncTaskBanioList();
+        ThreadAsyncTaskBanioListFiltrada thread = new ThreadAsyncTaskBanioListFiltrada();
         thread.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, recyclerView, this);
     }
 
@@ -46,10 +46,5 @@ public class ListaBanios extends AppCompatActivity {
     public void goToDetail(View view) {
         Intent goToDetail = new Intent(this, BanioDetalle.class);
         startActivity(goToDetail);
-    }
-
-    public void filterList(View view) {
-        Intent filterList = new Intent(this, ListaBaniosFiltrada.class);
-        startActivity(filterList);
     }
 }

@@ -1,7 +1,5 @@
 package com.example.arduinobanio;
 
-import static com.example.arduinobanio.R.id.spinner;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -13,15 +11,13 @@ import android.widget.Spinner;
 
 public class Bluetooth extends AppCompatActivity {
 
-    private Spinner spinner;
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
 
-        spinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner = findViewById(R.id.spinner);
 
         String [] opciones = {"BT", "Wifi", "Radio"};
 

@@ -5,27 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    tools:context=".Bluetooth">
+    android:onClick="goToDetail"
+    tools:context=".ListaBanios">
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="337dp"
-        android:layout_height="61dp"
+        android:id="@+id/textView11"
+        android:layout_width="366dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Dispositivos"
+        android:text="Activos"
         android:textAlignment="center"
+        android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/buttons"
         android:textSize="38sp"
         android:typeface="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvListaBanios"
+        android:layout_width="366dp"
+        android:layout_height="572dp"
+        android:contextClickable="true"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabGoToHome2"
+        android:id="@+id/fabGoToHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -37,31 +52,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.042"
-        app:rippleColor="#FFFFFF"
         app:srcCompat="?attr/homeAsUpIndicator" />
 
     <Button
-        android:id="@+id/button5"
-        android:layout_width="270dp"
-        android:layout_height="42dp"
+        android:id="@+id/button"
+        android:layout_width="160dp"
+        android:layout_height="38dp"
         android:backgroundTint="@color/buttons"
-        android:onClick="goToWelcome"
-        android:text="Emparejar"
+        android:text="Filtrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.924"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.901" />
+        app:layout_constraintVertical_bias="0.165" />
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="343dp"
+        android:layout_width="199dp"
         android:layout_height="38dp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        android:layout_marginTop="23dp"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvListaBanios"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.103"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintVertical_bias="0.032" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

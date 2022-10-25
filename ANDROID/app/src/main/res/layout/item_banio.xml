@@ -16,7 +16,7 @@
             android:id="@+id/llItemBanio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#BC0ECCB6"
+            android:background="#184E4E"
             android:clipToPadding="false"
             android:onClick="goToDetail"
             android:orientation="horizontal"
@@ -45,7 +45,7 @@
                     android:layout_margin="10dp"
                     android:text="Nombre Banio"
                     android:textAlignment="viewStart"
-                    android:textColor="#031023"
+                    android:textColor="#FBF7F7"
                     android:textSize="26sp"
                     android:textStyle="bold"
                     tools:ignore="MissingConstraints" />
@@ -57,7 +57,7 @@
                     android:layout_marginStart="10dp"
                     android:text="Estado"
                     android:textAlignment="viewStart"
-                    android:textColor="#040F1E"
+                    android:textColor="#FBF7F7"
                     android:textSize="24sp"
                     android:textStyle="bold|italic"
                     android:visibility="visible" />

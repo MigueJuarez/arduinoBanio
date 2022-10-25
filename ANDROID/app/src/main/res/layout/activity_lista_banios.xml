@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF9F9"
+    android:background="@drawable/gradient_background"
     android:onClick="goToDetail"
     tools:context=".ListaBanios">
 
@@ -13,12 +13,12 @@
         android:layout_width="366dp"
         android:layout_height="60dp"
         android:layout_marginTop="32dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Baños Activos"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Activos"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#000000"
+        android:textColor="@color/buttons"
         android:textSize="38sp"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvListaBanios"
         android:layout_width="366dp"
-        android:layout_height="639dp"
+        android:layout_height="572dp"
         android:contextClickable="true"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -45,6 +45,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:onClick="goToWelcome"
+        app:backgroundTint="@color/buttons"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
@@ -52,6 +53,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.042"
         app:srcCompat="?attr/homeAsUpIndicator" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="160dp"
+        android:layout_height="38dp"
+        android:backgroundTint="@color/buttons"
+        android:onClick="filterList"
+        android:text="Filtrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.924"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.165" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="199dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvListaBanios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

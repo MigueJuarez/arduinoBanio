@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFB"
+    android:background="@drawable/gradient_background"
     tools:context=".Welcome">
 
     <TextView
@@ -28,11 +28,11 @@
         android:layout_width="337dp"
         android:layout_height="61dp"
         android:layout_marginTop="52dp"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="sans-serif-condensed"
         android:text="Arduino Baño "
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#000000"
+        android:textColor="@color/buttons"
         android:textSize="48sp"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +44,7 @@
         android:id="@+id/button2"
         android:layout_width="270dp"
         android:layout_height="42dp"
+        android:backgroundTint="@color/buttons"
         android:onClick="goToList"
         android:text="ver baños"
         app:iconTint="#FFFFFF"
@@ -58,6 +59,7 @@
         android:id="@+id/button3"
         android:layout_width="270dp"
         android:layout_height="42dp"
+        android:backgroundTint="@color/buttons"
         android:onClick="goToBT"
         android:text="Emparejar bt"
         app:layout_constraintBottom_toTopOf="@+id/button2"
