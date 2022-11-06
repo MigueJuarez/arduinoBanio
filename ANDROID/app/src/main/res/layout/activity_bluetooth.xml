@@ -40,6 +40,44 @@
         app:rippleColor="#FFFFFF"
         app:srcCompat="?attr/homeAsUpIndicator" />
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <Button
+            android:id="@+id/btn_pair"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:text="@string/text_pair" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/btn_pair"
+            android:layout_alignTop="@+id/btn_pair"
+            android:layout_alignParentLeft="true"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:text="Galaxy Nexus" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/btn_pair"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/btn_pair"
+            android:text="000000000" />
+
+    </RelativeLayout>
+
     <Button
         android:id="@+id/button5"
         android:layout_width="270dp"
@@ -54,14 +92,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.901" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="343dp"
-        android:layout_height="38dp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
