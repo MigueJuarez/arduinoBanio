@@ -204,6 +204,24 @@ int verificarEventoPulsadorDeLimpieza()
     return hayEvento;
 }
 
+/*consiste en realizar la lectura del Modulo BTE para verificar
+si se generó un evento*/
+int verificarEventoBTELimpieza()
+{
+  int hayEvento = 0;
+  if (miBT.available())       // si hay informacion disponible desde modulo
+  {
+    char msgeBT = char(miBT.read());
+
+    if (msgeBT == 'I' || msgeBT == 'F')
+    {
+      tipoEvento = COMENZAR_O_FINALIZAR_LIMPIEZA;
+      hayEvento = 1;
+    }
+  }
+  return hayEvento;
+}
+
 /*esta funcion toma los eventos provenientes de cada
 uno de los sensores*/
 void tomarEvento()
@@ -218,25 +236,14 @@ void tomarEvento()
       return;
     }    
   }
-
-      //BLUETH
-  if (miBT.available())       // si hay informacion disponible desde modulo
-  {
-    char a = char(miBT.read());
-
-    if (a == 'A')
-    {
-      lcd.setCursor(COLUMNA_MSJ_FILA2,FILA2);
-      lcd.print(a);
-          delay(1000);
-     }
-   }
   
   if(verificarEventoSensorSwitch())
     return;
   if(verficarEventoPulsadorSolicitudDeLimpieza())
     return;
   if(verificarEventoPulsadorDeLimpieza())
+    return;
+  if(verificarEventoBTELimpieza())
     return;
     if(verificarEventoPotenciometro())
     return;
