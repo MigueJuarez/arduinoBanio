@@ -5,6 +5,9 @@ package com.example.arduinobanio.modelo;
 //*************************************** recibe los datos enviados por el HC05**********************************
 
 import android.bluetooth.BluetoothSocket;
+import android.os.Handler;
+
+import com.example.arduinobanio.ContractBanioDetalle;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +17,10 @@ public class ConnectedThread extends Thread
 {
     private final InputStream mmInStream;
     private final OutputStream mmOutStream;
+
+    private Handler bluetoothIn;
+
+    final int handlerState = 0; //used to identify handler message
 
     //Constructor de la clase del hilo secundario
     public ConnectedThread(BluetoothSocket socket)
@@ -58,15 +65,15 @@ public class ConnectedThread extends Thread
 
 
     //write method
-    public void write(String input) {
+    public void write(String input, ContractBanioDetalle.Model.CallBackToView cb) {
         byte[] msgBuffer = input.getBytes();           //converts entered String into bytes
         try {
             mmOutStream.write(msgBuffer);                //write bytes over BT connection via outstream
         } catch (IOException e) {
             //if you cannot write, close the application
-            showToast("La conexion fallo");
-            finish();
+            cb.showMsg("La conexion fallo");
 
+            cb.finishView();
         }
     }
 }

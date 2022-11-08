@@ -1,35 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
+    <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="817d8e34-46d7-4ffa-b21c-17276cac92d8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/ContractBanioDetalle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/ContractPairDevices.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/ContractWelcome.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ModelBanioDetalle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ModelPairDevices.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ModelWelcome.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/presentador/PresentBanioDetalle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/presentador/PresentPairDevices.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/presentador/PresentWelcome.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/PairDevices.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_list_devices.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/BanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/BanioDetalle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/Bluetooth.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/ListDevices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/ListaBanios.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/ListaBanios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/ListaBaniosFiltrada.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/ListaBaniosFiltrada.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/Welcome.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/Welcome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_banio_detalle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_banio_detalle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_bluetooth.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_pair_devices.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_lista_banios.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_lista_banios.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_lista_banios_filtrada.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_lista_banios_filtrada.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/ContractBanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/ContractBanioDetalle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ConnectedThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ConnectedThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ModelBanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ModelBanioDetalle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/presentador/PresentBanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/presentador/PresentBanioDetalle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/BanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/BanioDetalle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +34,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2HGUVYbiT8GJhsxiav4jADsUduZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -120,7 +115,15 @@
       </method>
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="817d8e34-46d7-4ffa-b21c-17276cac92d8" name="Changes" comment="" />
+      <created>1667910943009</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667910943009</updated>
+    </task>
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

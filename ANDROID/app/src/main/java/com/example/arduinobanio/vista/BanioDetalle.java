@@ -7,18 +7,27 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.arduinobanio.ContractBanioDetalle;
+import com.example.arduinobanio.ContractWelcome;
 import com.example.arduinobanio.R;
+import com.example.arduinobanio.modelo.ModelBanioDetalle;
+import com.example.arduinobanio.presentador.PresentBanioDetalle;
 
-public class BanioDetalle extends AppCompatActivity {
+public class BanioDetalle extends AppCompatActivity implements ContractBanioDetalle.View {
 
     // String for MAC address del Hc05
     private static String address = null;
 
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
+
+    private ContractBanioDetalle.Presenter presenter;
+
+    private Handler bluetoothIn;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +49,18 @@ public class BanioDetalle extends AppCompatActivity {
 
         BluetoothDevice device = btAdapter.getRemoteDevice(address);
 
+        presenter = new PresentBanioDetalle(this, new ModelBanioDetalle());
 
+        presenter.establecerConexionDevice(device);
 
+        //defino el Handler de comunicacion entre el hilo Principal  el secundario.
+        //El hilo secundario va a mostrar informacion al layout atraves utilizando indeirectamente a este handler
+        bluetoothIn = presenter.Handler_Msg_Hilo_Principal();
+
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     public void iniciarLimpieza(View view) {
@@ -55,5 +74,20 @@ public class BanioDetalle extends AppCompatActivity {
     public void goToList(View view) {
         Intent goToList = new Intent(this, ListaBanios.class);
         startActivity(goToList);
+    }
+
+    @Override
+    public void actualizarEstado(String estado) {
+
+    }
+
+    @Override
+    public void showMsg(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void finishView() {
+        finish();
     }
 }
