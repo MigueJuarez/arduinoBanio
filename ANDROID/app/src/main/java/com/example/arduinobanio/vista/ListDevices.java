@@ -1,14 +1,11 @@
-package com.example.arduinobanio;
+package com.example.arduinobanio.vista;
 
 
 import java.util.List;
 
-import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,21 +14,14 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import com.example.arduinobanio.R;
 
-/**
- * Device list adapter.
- *
- * @author Lorensius W. L. T <lorenz@londatiga.net>
- *
- */
-public class Bluetooth extends BaseAdapter{
+public class ListDevices extends BaseAdapter{
     private LayoutInflater mInflater;
     private List<BluetoothDevice> mData;
     private OnPairButtonClickListener mListener;
 
-    public Bluetooth(Context context) {
+    public ListDevices(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
@@ -59,7 +49,7 @@ public class Bluetooth extends BaseAdapter{
         ViewHolder holder;
 
         if (convertView == null) {
-            convertView			=  mInflater.inflate(R.layout.activity_bluetooth, null);
+            convertView			=  mInflater.inflate(R.layout.activity_list_devices, null);
 
             holder 				= new ViewHolder();
 

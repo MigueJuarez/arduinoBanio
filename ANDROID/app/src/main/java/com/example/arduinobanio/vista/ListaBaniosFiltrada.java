@@ -1,4 +1,4 @@
-package com.example.arduinobanio;
+package com.example.arduinobanio.vista;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,17 +10,33 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.example.arduinobanio.thread.ThreadAsyncTaskBanioList;
+import com.example.arduinobanio.R;
+import com.example.arduinobanio.thread.ThreadAsyncTaskBanioListFiltrada;
 
+public class ListaBaniosFiltrada extends AppCompatActivity {
 
-public class ListaBanios extends AppCompatActivity {
+    // String for MAC address del Hc05
+    private static String address = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_banios);
+        setContentView(R.layout.activity_lista_banios_filtrada);
         initSpinnerStatus();
         initRecyclerView();
+    }
+
+    @Override
+    //Cada vez que se detecta el evento OnResume se establece la comunicacion con el HC05, creando un
+    //socketBluethoot
+    public void onResume() {
+        super.onResume();
+
+        //Obtengo el parametro, aplicando un Bundle, que me indica la Mac Adress del HC05
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+
+        address = extras.getString("MAC_HC05");
     }
 
     private void initSpinnerStatus() {
@@ -34,7 +50,7 @@ public class ListaBanios extends AppCompatActivity {
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.rvListaBanios);
-        ThreadAsyncTaskBanioList thread = new ThreadAsyncTaskBanioList();
+        ThreadAsyncTaskBanioListFiltrada thread = new ThreadAsyncTaskBanioListFiltrada();
         thread.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, recyclerView, this);
     }
 
@@ -46,10 +62,5 @@ public class ListaBanios extends AppCompatActivity {
     public void goToDetail(View view) {
         Intent goToDetail = new Intent(this, BanioDetalle.class);
         startActivity(goToDetail);
-    }
-
-    public void filterList(View view) {
-        Intent filterList = new Intent(this, ListaBaniosFiltrada.class);
-        startActivity(filterList);
     }
 }

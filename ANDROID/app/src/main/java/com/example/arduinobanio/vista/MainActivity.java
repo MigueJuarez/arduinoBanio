@@ -1,21 +1,16 @@
-package com.example.arduinobanio;
+package com.example.arduinobanio.vista;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
-import android.app.ProgressDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.example.arduinobanio.R;
 
 public class MainActivity extends AppCompatActivity {
 

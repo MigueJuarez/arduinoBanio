@@ -1,4 +1,4 @@
-package com.example.arduinobanio;
+package com.example.arduinobanio.vista;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,19 +24,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import android.content.DialogInterface;
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class Welcome extends AppCompatActivity {
+import com.example.arduinobanio.ContractPairDevices;
+import com.example.arduinobanio.ContractWelcome;
+import com.example.arduinobanio.R;
+import com.example.arduinobanio.modelo.ModelPairDevices;
+import com.example.arduinobanio.modelo.ModelWelcome;
+import com.example.arduinobanio.presentador.PresentPairDevices;
+import com.example.arduinobanio.presentador.PresentWelcome;
+
+public class Welcome extends AppCompatActivity implements ContractWelcome.View {
 
     private TextView textTitulo;
     private TextView textPresentacion;
     private Button btnEmparejar; //seria para ver los dispositivos emparejados
     private Button btnVerBanios;
 
+    // String for MAC address del Hc05
+    private static String address = null;
+
+    private ContractWelcome.Presenter presenter;
 
     private ProgressDialog mProgressDlg;
 
@@ -66,32 +73,9 @@ public class Welcome extends AppCompatActivity {
         btnVerBanios = (Button) findViewById(R.id.button2);
         //btnBuscarBanios = (Button) findViewById(R.id.); //faltaria agregarlo en el layout
 
-        //Se crea un adaptador para poder manejar el bluethoot del celular
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        registrarBroadcasts();
 
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-        if (pairedDevices == null || pairedDevices.size() == 0)
-        {
-            showToast("No se encontraron dispositivos emparejados");
-            btnEmparejar.setEnabled(true);
-            btnVerBanios.setEnabled(false);
-        }
-        else{
-            showToast("se encontraron dispositivos emparejados");
-            btnEmparejar.setEnabled(false);
-            btnVerBanios.setEnabled(true);
-        }
+        presenter.detectPairDevices();
 
         //Se Crea la ventana de dialogo que indica que se esta buscando dispositivos bluethoot
         mProgressDlg = new ProgressDialog(this);
@@ -100,11 +84,26 @@ public class Welcome extends AppCompatActivity {
         mProgressDlg.setCancelable(false);
 
 
-
+        presenter = new PresentWelcome(this, new ModelWelcome());
 
         Log.i("Ejecuto","Ejecuto onCreate");
     }
 
+
+
+
+
+    private void registrarBroadcasts() {
+        //se definen un broadcastReceiver que captura el broadcast del SO cuando captura los siguientes eventos:
+        IntentFilter filter = new IntentFilter();
+
+        filter.addAction(BluetoothDevice.ACTION_FOUND); //Se encuentra un dispositivo bluethoot al realizar una busqueda
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED); //Cuando se comienza una busqueda de bluethoot
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED); //cuando la busqueda de bluethoot finaliza
+
+        //se define (registra) el handler que captura los broadcast anterirmente mencionados.
+        registerReceiver(mReceiver, filter);
+    }
 
     protected  void enableComponent()
     {
@@ -131,16 +130,6 @@ public class Welcome extends AppCompatActivity {
             }
         }
 
-        //se definen un broadcastReceiver que captura el broadcast del SO cuando captura los siguientes eventos:
-        IntentFilter filter = new IntentFilter();
-
-        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED); //Cambia el estado del Bluethoot (Activado /Desactivado)
-        filter.addAction(BluetoothDevice.ACTION_FOUND); //Se encuentra un dispositivo bluethoot al realizar una busqueda
-        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED); //Cuando se comienza una busqueda de bluethoot
-        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED); //cuando la busqueda de bluethoot finaliza
-
-        //se define (registra) el handler que captura los broadcast anterirmente mencionados.
-        registerReceiver(mReceiver, filter);
     }
 
 
@@ -182,8 +171,14 @@ public class Welcome extends AppCompatActivity {
     @Override
     protected void onResume()
     {
-        Log.i("Ejecuto","Ejecuto OnResume");
         super.onResume();
+
+        //Obtengo el parametro, aplicando un Bundle, que me indica la Mac Adress del HC05
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            address = extras.getString("MAC_HC05");
+        }
     }
 
     @Override
@@ -220,7 +215,7 @@ public class Welcome extends AppCompatActivity {
                     break;
                 case R.id.button3: //emparejar BT
 
-                    Intent intent = new Intent(Welcome.this, Bluetooth.class);
+                    Intent intent = new Intent(Welcome.this, ListDevices.class);
 
                     intent.putParcelableArrayListExtra("device.list", mDeviceList);
 
@@ -231,68 +226,35 @@ public class Welcome extends AppCompatActivity {
         }
     };
 
-
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
-
-            //Atraves del Intent obtengo el evento de Bluethoot que informo el broadcast del SO
-            String action = intent.getAction();
-
-            //Si cambio de estado el Bluethoot(Activado/desactivado)
-            if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action))
-            {
-                //Obtengo el parametro, aplicando un Bundle, que me indica el estado del Bluethoot
-                final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
-
-                //Si esta activado
-                if (state == BluetoothAdapter.STATE_ON)
-                {
-                    showToast("Activar");
-                }
-            }
-            //Si se inicio la busqueda de dispositivos bluethoot
-            else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action))
-            {
-                //Creo la lista donde voy a mostrar los dispositivos encontrados
-                mDeviceList = new ArrayList<BluetoothDevice>();
-
-                //muestro el cuadro de dialogo de busqueda
-                mProgressDlg.show();
-            }
-            //Si finalizo la busqueda de dispositivos bluethoot
-            else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
-            {
-                //se cierra el cuadro de dialogo de busqueda
-                mProgressDlg.dismiss();
-
-                //se inicia el activity DeviceListActivity pasandole como parametros, por intent,
-                //el listado de dispositovos encontrados
-                Intent newIntent = new Intent(Welcome.this, Bluetooth
-                        .class);
-
-                newIntent.putParcelableArrayListExtra("device.list", mDeviceList);
-
-                startActivity(newIntent);
-            }
-            //si se encontro un dispositivo bluethoot
-            else if (BluetoothDevice.ACTION_FOUND.equals(action))
-            {
-                //Se lo agregan sus datos a una lista de dispositivos encontrados
-                BluetoothDevice device = (BluetoothDevice) intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-
-                mDeviceList.add(device);
-            }
+            presenter.foundDevices(intent);
         }
     };
 
 
     public void goToBT(View view) {
-        Intent goToBT = new Intent(this, Bluetooth.class);
+        Intent goToBT = new Intent(this, ListDevices.class);
         startActivity(goToBT);
     }
 
     public void goToList(View view) {
         Intent goToList = new Intent(this, ListaBanios.class);
+        goToList.putExtra("MAC_HC05", address);
         startActivity(goToList);
+    }
+
+    public void showMsg (String msge) {
+        showToast(msge);
+    }
+
+    public void enableButtonsEmparejamiento(boolean dispEmparejado) {
+        btnEmparejar.setEnabled(!dispEmparejado);
+        btnVerBanios.setEnabled(dispEmparejado);
+    }
+
+
+    public void setDevicesFound(ArrayList<BluetoothDevice> pDeviceList) {
+        mDeviceList = pDeviceList;
     }
 }
