@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.arduinobanio.ContractPairDevices;
+import com.example.arduinobanio.R;
 import com.example.arduinobanio.modelo.ModelPairDevices;
 import com.example.arduinobanio.presentador.PresentPairDevices;
 
@@ -81,10 +82,12 @@ public class PairDevices extends Activity implements ContractPairDevices.View {
         }
     };
 
+    @Override
     public void setPosicionListBluetooth(int position) {
         posicionListBluethoot = position;
     }
 
+    @Override
     public void goToWelcome(String direccionMAC) {
         Intent i = new Intent(PairDevices.this, Welcome.class);
         i.putExtra("MAC_HC05", direccionMAC);
@@ -92,7 +95,9 @@ public class PairDevices extends Activity implements ContractPairDevices.View {
         startActivity(i);
     }
 
+    @Override
     public void showMsg (String msge) {
+
         showToast(msge);
     }
 

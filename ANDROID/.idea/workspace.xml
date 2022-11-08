@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="817d8e34-46d7-4ffa-b21c-17276cac92d8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/ContractBanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/ContractBanioDetalle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ConnectedThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ConnectedThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ModelBanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ModelBanioDetalle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/presentador/PresentBanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/presentador/PresentBanioDetalle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/BanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/BanioDetalle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/PairDevices.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/PairDevices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_list_devices.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_list_devices.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +49,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="android-custom-viewC:/Users/STERMANNAXELLUIS/AppData/Local/Android/Sdk/sources/android-33/android/widget/RelativeLayout.java_RelativeLayout_DIMENSIONS" value="1080&#10;1920" />
+    <property name="android-custom-viewC:/Users/STERMANNAXELLUIS/AppData/Local/Android/Sdk/sources/android-33/android/widget/RelativeLayout.java_SELECTED" value="RelativeLayout" />
     <property name="cidr.known.project.marker" value="true" />
   </component>
   <component name="RecentsManager">
