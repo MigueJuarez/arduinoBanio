@@ -49,7 +49,7 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
     @Override
     public void sendObtenerEstado() {
         model.sendMsg(this, COMANDO_OBTENER_ESTADO);
-        this.view.showMsg("Finalizar limpieza enviado");
+        this.view.showMsg("Obtener Estado enviado");
     }
 
     @Override

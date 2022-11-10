@@ -57,7 +57,7 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
         //defino el Handler de comunicacion entre el hilo Principal  el secundario.
         //El hilo secundario va a mostrar informacion al layout atraves utilizando indeirectamente a este handler
         bluetoothIn = presenter.Handler_Msg_Hilo_Principal();
-        presenter.sendObtenerEstado();
+        //TODO presenter.sendObtenerEstado();
     }
 
     private void showToast(String message) {
@@ -65,14 +65,14 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     }
 
     public void iniciarLimpieza(View view) {
-        //Toast.makeText(view.getContext(), "Solicitud de limpieza aceptada",Toast.LENGTH_SHORT).show();
-        presenter.sendIniciarLimpieza();
+        //TODO presenter.sendIniciarLimpieza();
+
         //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
     }
 
     public void finalizarLimpieza(View view) {
-        //Toast.makeText(view.getContext(), "Limpieza finalizada",Toast.LENGTH_SHORT).show();
-        presenter.sendFinalizarLimpieza();
+        //TODO presenter.sendFinalizarLimpieza();
+
         //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
     }
 
@@ -82,7 +82,9 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     }
 
     @Override
-    public void actualizarEstado(String estado) {}
+    public void actualizarEstado(String estado) {
+        //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
+    }
 
     @Override
     public void showMsg(String msg) {
