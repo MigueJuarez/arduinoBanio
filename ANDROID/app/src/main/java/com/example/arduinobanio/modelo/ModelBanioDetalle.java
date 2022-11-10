@@ -123,8 +123,8 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
         mConnectedThread.start();
     }
 
-    public void sendMsge(String msg, CallBackToView cb) {
-        mConnectedThread.write(msg, cb);
+    public void sendMsg(CallBackToView cb, String msg) {
+        mConnectedThread.write(cb, msg);
     }
 
     public void cerrarConexion() {

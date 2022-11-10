@@ -15,6 +15,10 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
     private final ContractBanioDetalle.View view;
     private final ContractBanioDetalle.Model model;
 
+    private final String COMANDO_INICIAR_LIMPIEZA = "I";
+    private final String COMANDO_FINALIZAR_LIMPIEZA = "F";
+    private final String COMANDO_OBTENER_ESTADO = "E";
+
     public PresentBanioDetalle(ContractBanioDetalle.View pView, ContractBanioDetalle.Model pModel) {
         this.view = pView;
         this.model = pModel;
@@ -31,11 +35,27 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
     }
 
     @Override
+    public void sendIniciarLimpieza() {
+        model.sendMsg(this, COMANDO_INICIAR_LIMPIEZA);
+        this.view.showMsg("Iniciar limpieza enviado");
+    }
+
+    @Override
+    public void sendFinalizarLimpieza() {
+        model.sendMsg(this, COMANDO_FINALIZAR_LIMPIEZA);
+        this.view.showMsg("Finalizar limpieza enviado");
+    }
+
+    @Override
+    public void sendObtenerEstado() {
+        model.sendMsg(this, COMANDO_OBTENER_ESTADO);
+        this.view.showMsg("Finalizar limpieza enviado");
+    }
+
+    @Override
     public void finishView() {
         view.finishView();
     }
-
-
 
     @Override
     public void establecerConexionDevice(BluetoothDevice device) {

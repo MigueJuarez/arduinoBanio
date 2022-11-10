@@ -65,7 +65,7 @@ public class ConnectedThread extends Thread
 
 
     //write method
-    public void write(String input, ContractBanioDetalle.Model.CallBackToView cb) {
+    public void write(ContractBanioDetalle.Model.CallBackToView cb, String input) {
         byte[] msgBuffer = input.getBytes();           //converts entered String into bytes
         try {
             mmOutStream.write(msgBuffer);                //write bytes over BT connection via outstream

@@ -15,8 +15,10 @@
     <list default="true" id="817d8e34-46d7-4ffa-b21c-17276cac92d8" name="Changes" comment="agrego gitIgnore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/ContractBanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/ContractBanioDetalle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ConnectedThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ConnectedThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ModelBanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/modelo/ModelBanioDetalle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/presentador/PresentBanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/presentador/PresentBanioDetalle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/BanioDetalle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/arduinobanio/vista/BanioDetalle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -16,6 +16,7 @@ public interface ContractBanioDetalle {
         void establecerConexionDevice(CallBackToView cb, BluetoothDevice device);
         void pedirPermisos(CallBackToView cb, Activity activity);
         Handler Handler_Msg_Hilo_Principal (CallBackToView cb);
+        void sendMsg(CallBackToView cb, String msg);
         interface CallBackToView {
             void actualizarEstado(String estado);
             void showMsg(String msg);
@@ -28,6 +29,9 @@ public interface ContractBanioDetalle {
         void showMsg(String msg);
         Handler Handler_Msg_Hilo_Principal();
         void pedirPermisos(Activity activity);
+        void sendObtenerEstado();
+        void sendIniciarLimpieza();
+        void sendFinalizarLimpieza();
     }
 
 
