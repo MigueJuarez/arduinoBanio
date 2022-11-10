@@ -12,10 +12,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.arduinobanio.ContractBanioDetalle;
-import com.example.arduinobanio.ContractWelcome;
 import com.example.arduinobanio.R;
-import com.example.arduinobanio.modelo.ModelBanioDetalle;
 import com.example.arduinobanio.presentador.PresentBanioDetalle;
+
+import java.util.Objects;
 
 public class BanioDetalle extends AppCompatActivity implements ContractBanioDetalle.View {
 
@@ -28,35 +28,33 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     private ContractBanioDetalle.Presenter presenter;
 
     private Handler bluetoothIn;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banio_detalle);
+        presenter = new PresentBanioDetalle(this);
+        presenter.pedirPermisos(this);
     }
 
+    //Cada vez que se detecta el evento OnResume se establece la comunicacion con el HC05, creando un socketBluethoot
     @Override
-    //Cada vez que se detecta el evento OnResume se establece la comunicacion con el HC05, creando un
-    //socketBluethoot
     public void onResume() {
         super.onResume();
 
-        //Obtengo el parametro, aplicando un Bundle, que me indica la Mac Adress del HC05
+        // Obtengo el parametro, aplicando un Bundle, que me indica la Mac Adress del HC05
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
 
-        address = extras.getString("MAC_HC05");
-
-        BluetoothDevice device = btAdapter.getRemoteDevice(address);
-
-        presenter = new PresentBanioDetalle(this, new ModelBanioDetalle());
-
-        presenter.establecerConexionDevice(device);
+        if (Objects.nonNull(extras)) {
+            address = extras.getString("MAC_HC05");
+            BluetoothDevice device = btAdapter.getRemoteDevice(address);
+            presenter.establecerConexionDevice(device);
+        }
 
         //defino el Handler de comunicacion entre el hilo Principal  el secundario.
         //El hilo secundario va a mostrar informacion al layout atraves utilizando indeirectamente a este handler
         bluetoothIn = presenter.Handler_Msg_Hilo_Principal();
-
     }
 
     private void showToast(String message) {
@@ -71,15 +69,13 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
         Toast.makeText(view.getContext(), "Limpieza finalizada",Toast.LENGTH_SHORT).show();
     }
 
-    public void goToList(View view) {
+    public void goToListaBanios(View view) {
         Intent goToList = new Intent(this, ListaBanios.class);
         startActivity(goToList);
     }
 
     @Override
-    public void actualizarEstado(String estado) {
-
-    }
+    public void actualizarEstado(String estado) {}
 
     @Override
     public void showMsg(String msg) {

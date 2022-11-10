@@ -1,23 +1,32 @@
 package com.example.arduinobanio.modelo;
 
+import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
+import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.arduinobanio.ContractBanioDetalle;
-import com.example.arduinobanio.ContractPairDevices;
-import com.example.arduinobanio.ContractWelcome;
-import com.example.arduinobanio.vista.PairDevices;
-import com.example.arduinobanio.vista.Welcome;
+import com.example.arduinobanio.presentador.PresentBanioDetalle;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
+
+    private ContractBanioDetalle.Presenter presenter;
 
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
@@ -30,36 +39,86 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
 
     final int handlerState = 0; //used to identify handler message
 
+    public ModelBanioDetalle(ContractBanioDetalle.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
     @Override
     public void establecerConexionDevice(CallBackToView cb, BluetoothDevice device) {
+
         //se realiza la conexion del Bluethoot crea y se conectandose a atraves de un socket
-        try
-        {
+        try {
             btSocket = createBluetoothSocket(device);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             cb.showMsg( "La creacción del Socket fallo");
         }
         // Establish the Bluetooth socket connection.
-        try
-        {
+        try {
             btSocket.connect();
-        }
-        catch (IOException e)
-        {
-            try
-            {
+        } catch (IOException e) {
+            try {
                 btSocket.close();
-            }
-            catch (IOException e2)
-            {
+            } catch (IOException e2) {
                 //insert code to deal with this
             }
         }
 
         startComunicacion();
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    @Override
+    public void pedirPermisos(Activity activity) {
+
+        String[] permissions = new String[]{
+                Manifest.permission.BLUETOOTH,
+                Manifest.permission.BLUETOOTH_ADMIN,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.BLUETOOTH_CONNECT,
+                Manifest.permission.BLUETOOTH_SCAN,
+                Manifest.permission.BLUETOOTH_ADVERTISE};
+
+        List<String> listPermissionsNeeded = new ArrayList<>();
+
+        for (String permiso : permissions) {
+            if (ContextCompat.checkSelfPermission(activity.getApplicationContext() , permiso) != PackageManager.PERMISSION_GRANTED) {
+                // Permiso no aceptado por el momento
+                presenter.showMsg("Permiso " + permiso +  " no aceptado por el momento");
+                listPermissionsNeeded.add(permiso); // agrego el permiso para hacer el requestPermissions
+            } else {
+                // Ya tenemos los permisos
+                presenter.showMsg("Ya tenemos permiso de " + permiso);
+            }
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permiso)) {
+                // Permisos rechazados, aceptarlos desde ajustes
+                presenter.showMsg("Permiso " + permiso + "debe otorgarse desde Ajustes");
+            }
+        }
+
+        if (listPermissionsNeeded.size() > 0){
+            // Solicito los permisos que me faltan
+            ActivityCompat.requestPermissions(activity, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 123);
+        }
+
+        /*
+        if (ContextCompat.checkSelfPermission(activity.getApplicationContext() , Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
+            // Permiso no aceptado por el momento
+            presenter.showMsg("Permiso no aceptado por el momento");
+        } else {
+            // Ya tenemos los permisos
+            presenter.showMsg("Ya tenemos los permisos");
+        }
+        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.BLUETOOTH)) {
+            // Permisos rechazados, aceptarlos desde ajustes
+        } else {
+            ActivityCompat.requestPermissions(activity, Arrays.asList(Manifest.permission.BLUETOOTH).toArray(new String[1]), 123);
+        }*/
+    }
+
+
 
     private void startComunicacion() {
         //Una establecida la conexion con el Hc05 se crea el hilo secundario, el cual va a recibir
@@ -73,8 +132,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
     }
 
     public void cerrarConexion() {
-        try
-        {
+        try {
             //Don't leave Bluetooth sockets open when leaving activity
             btSocket.close();
         } catch (IOException e2) {
@@ -88,7 +146,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
         return  device.createRfcommSocketToServiceRecord(BTMODULEUUID);
     }
 
-    //Handler que sirve que permite mostrar datos en el Layout al hilo secundario
+    //Handler que permite mostrar datos en el Layout al hilo secundario
     public Handler Handler_Msg_Hilo_Principal (CallBackToView cb)
     {
         return new Handler(){
@@ -115,7 +173,5 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
             }
         };
     }
-
-
 
 }

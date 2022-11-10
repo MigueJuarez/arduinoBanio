@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -22,16 +23,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import android.widget.TextView;
 
-import com.example.arduinobanio.ContractPairDevices;
 import com.example.arduinobanio.ContractWelcome;
 import com.example.arduinobanio.R;
-import com.example.arduinobanio.modelo.ModelPairDevices;
 import com.example.arduinobanio.modelo.ModelWelcome;
-import com.example.arduinobanio.presentador.PresentPairDevices;
 import com.example.arduinobanio.presentador.PresentWelcome;
 
 public class Welcome extends AppCompatActivity implements ContractWelcome.View {
@@ -62,6 +59,7 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View {
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.READ_EXTERNAL_STORAGE,};
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,28 +67,15 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View {
 
         textTitulo = (TextView) findViewById(R.id.textView3);
         textPresentacion = (TextView) findViewById(R.id.textView4);
-        btnEmparejar = (Button) findViewById(R.id.button3);
-        btnVerBanios = (Button) findViewById(R.id.button2);
+        btnVerBanios = (Button) findViewById(R.id.verBanios);
         //btnBuscarBanios = (Button) findViewById(R.id.); //faltaria agregarlo en el layout
 
         registrarBroadcasts();
-
-        presenter.detectPairDevices();
-
-        //Se Crea la ventana de dialogo que indica que se esta buscando dispositivos bluethoot
-        mProgressDlg = new ProgressDialog(this);
-
-        mProgressDlg.setMessage("Buscando dispositivos...");
-        mProgressDlg.setCancelable(false);
-
 
         presenter = new PresentWelcome(this, new ModelWelcome());
 
         Log.i("Ejecuto","Ejecuto onCreate");
     }
-
-
-
 
 
     private void registrarBroadcasts() {
@@ -112,7 +97,6 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View {
         {
             //si el celular soporta bluethoot, se definen los listener para los botones de la activity
 
-            btnEmparejar.setOnClickListener(btnListener);
             btnVerBanios.setOnClickListener(btnListener);
 
             //se determina si esta activado el bluethoot
@@ -208,19 +192,12 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View {
 
 
     private View.OnClickListener btnListener = new View.OnClickListener() {
+        @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View view) {
             switch (view.getId()){
-                case R.id.button2: //verBaños
-                    break;
-                case R.id.button3: //emparejar BT
-
-                    Intent intent = new Intent(Welcome.this, ListDevices.class);
-
-                    intent.putParcelableArrayListExtra("device.list", mDeviceList);
-
-                    startActivity(intent);
-
+                case R.id.verBanios: //verBaños
+                    goToListaBanios(view);
                     break;
             }
         }
@@ -232,13 +209,7 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View {
         }
     };
 
-
-    public void goToBT(View view) {
-        Intent goToBT = new Intent(this, ListDevices.class);
-        startActivity(goToBT);
-    }
-
-    public void goToList(View view) {
+    public void goToListaBanios(View view) {
         Intent goToList = new Intent(this, ListaBanios.class);
         goToList.putExtra("MAC_HC05", address);
         startActivity(goToList);
@@ -246,11 +217,6 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View {
 
     public void showMsg (String msge) {
         showToast(msge);
-    }
-
-    public void enableButtonsEmparejamiento(boolean dispEmparejado) {
-        btnEmparejar.setEnabled(!dispEmparejado);
-        btnVerBanios.setEnabled(dispEmparejado);
     }
 
 

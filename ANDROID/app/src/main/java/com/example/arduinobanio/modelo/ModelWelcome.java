@@ -4,9 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 
-import com.example.arduinobanio.ContractPairDevices;
 import com.example.arduinobanio.ContractWelcome;
-import com.example.arduinobanio.vista.ListDevices;
 
 import java.util.ArrayList;
 import java.util.Set;

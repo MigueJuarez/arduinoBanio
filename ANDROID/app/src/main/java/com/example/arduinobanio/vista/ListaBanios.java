@@ -13,6 +13,8 @@ import android.widget.Spinner;
 import com.example.arduinobanio.R;
 import com.example.arduinobanio.thread.ThreadAsyncTaskBanioList;
 
+import java.util.Objects;
+
 
 public class ListaBanios extends AppCompatActivity {
 
@@ -37,7 +39,9 @@ public class ListaBanios extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
 
-        address = extras.getString("MAC_HC05");
+        if (Objects.nonNull(extras)) {
+            address = extras.getString("MAC_HC05");
+        }
     }
 
     private void initSpinnerStatus() {
