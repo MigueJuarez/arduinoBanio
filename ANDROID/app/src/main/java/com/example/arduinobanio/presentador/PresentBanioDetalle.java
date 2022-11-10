@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.os.Handler;
 
 import com.example.arduinobanio.ContractBanioDetalle;
+import com.example.arduinobanio.ContractWelcome;
 import com.example.arduinobanio.modelo.ModelBanioDetalle;
 
 import java.util.Objects;
@@ -14,9 +15,9 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
     private final ContractBanioDetalle.View view;
     private final ContractBanioDetalle.Model model;
 
-    public PresentBanioDetalle(ContractBanioDetalle.View pView) {
+    public PresentBanioDetalle(ContractBanioDetalle.View pView, ContractBanioDetalle.Model pModel) {
         this.view = pView;
-        model = new ModelBanioDetalle(this);
+        this.model = pModel;
     }
 
     @Override
@@ -34,12 +35,7 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
         view.finishView();
     }
 
-    @Override
-    public void pedirPermisos(Activity activity) {
-        if (Objects.nonNull(view)) {
-            model.pedirPermisos(activity);
-        }
-    }
+
 
     @Override
     public void establecerConexionDevice(BluetoothDevice device) {
@@ -51,5 +47,11 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
         return model.Handler_Msg_Hilo_Principal(this);
     }
 
+    @Override
+    public void pedirPermisos(Activity activity) {
+        if (Objects.nonNull(view)) {
+            model.pedirPermisos(this, activity);
+        }
+    }
 
 }

@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.arduinobanio.ContractBanioDetalle;
+import com.example.arduinobanio.ContractWelcome;
 import com.example.arduinobanio.presentador.PresentBanioDetalle;
 
 import java.io.IOException;
@@ -25,8 +26,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
-
-    private ContractBanioDetalle.Presenter presenter;
 
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
@@ -39,9 +38,6 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
 
     final int handlerState = 0; //used to identify handler message
 
-    public ModelBanioDetalle(ContractBanioDetalle.Presenter presenter) {
-        this.presenter = presenter;
-    }
 
     @Override
     public void establecerConexionDevice(CallBackToView cb, BluetoothDevice device) {
@@ -68,7 +64,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
 
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
-    public void pedirPermisos(Activity activity) {
+    public void pedirPermisos(ContractBanioDetalle.Model.CallBackToView cb, Activity activity) {
 
         String[] permissions = new String[]{
                 Manifest.permission.BLUETOOTH,
@@ -86,15 +82,15 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
         for (String permiso : permissions) {
             if (ContextCompat.checkSelfPermission(activity.getApplicationContext() , permiso) != PackageManager.PERMISSION_GRANTED) {
                 // Permiso no aceptado por el momento
-                presenter.showMsg("Permiso " + permiso +  " no aceptado por el momento");
+                cb.showMsg("Permiso " + permiso +  " no aceptado por el momento");
                 listPermissionsNeeded.add(permiso); // agrego el permiso para hacer el requestPermissions
             } else {
                 // Ya tenemos los permisos
-                presenter.showMsg("Ya tenemos permiso de " + permiso);
+                cb.showMsg("Ya tenemos permiso de " + permiso);
             }
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permiso)) {
                 // Permisos rechazados, aceptarlos desde ajustes
-                presenter.showMsg("Permiso " + permiso + "debe otorgarse desde Ajustes");
+                cb.showMsg("Permiso " + permiso + "debe otorgarse desde Ajustes");
             }
         }
 

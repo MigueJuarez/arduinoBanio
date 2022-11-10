@@ -12,17 +12,9 @@ public interface ContractBanioDetalle {
         void finishView();
     }
 
-    interface Presenter {
-        void pedirPermisos(Activity activity);
-        void establecerConexionDevice(BluetoothDevice device);
-        void showMsg(String msg);
-        Handler Handler_Msg_Hilo_Principal();
-    }
-
     interface Model {
-        void pedirPermisos(Activity activity);
-        void establecerConexionDevice(ContractBanioDetalle.Model.CallBackToView cb, BluetoothDevice device);
-
+        void establecerConexionDevice(CallBackToView cb, BluetoothDevice device);
+        void pedirPermisos(CallBackToView cb, Activity activity);
         Handler Handler_Msg_Hilo_Principal (CallBackToView cb);
         interface CallBackToView {
             void actualizarEstado(String estado);
@@ -30,4 +22,13 @@ public interface ContractBanioDetalle {
             void finishView();
         }
     }
+
+    interface Presenter {
+        void establecerConexionDevice(BluetoothDevice device);
+        void showMsg(String msg);
+        Handler Handler_Msg_Hilo_Principal();
+        void pedirPermisos(Activity activity);
+    }
+
+
 }
