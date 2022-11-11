@@ -10,6 +10,7 @@ public interface ContractBanioDetalle {
         void actualizarEstado(String estado);
         void showMsg(String msg);
         void finishView();
+        void disableBtns();
     }
 
     interface Model {
@@ -18,6 +19,7 @@ public interface ContractBanioDetalle {
         void pedirPermisos( Activity activity);
         Handler Handler_Msg_Hilo_Principal ();
         void sendMsg(String msg);
+
         interface CallBackToView {
             void actualizarEstado(String estado);
             void showMsg(String msg);

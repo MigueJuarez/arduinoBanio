@@ -77,6 +77,7 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
         }
         else {
             this.view.showMsg("Debe emparejar solamente a 1 dispositivo");
+            this.view.disableBtns();
         }
 
     }

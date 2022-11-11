@@ -95,6 +95,7 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
         finish();
     }
 
+    @Override
     public void disableBtns() {
         btnIniciarLimpieza.setEnabled(false);
         btnFinalizarLimpieza.setEnabled(false);

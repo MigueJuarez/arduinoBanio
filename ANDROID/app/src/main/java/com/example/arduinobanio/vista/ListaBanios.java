@@ -34,14 +34,6 @@ public class ListaBanios extends AppCompatActivity {
     //socketBluethoot
     public void onResume() {
         super.onResume();
-
-        //Obtengo el parametro, aplicando un Bundle, que me indica la Mac Adress del HC05
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-
-        if (Objects.nonNull(extras)) {
-            address = extras.getString("MAC_HC05");
-        }
     }
 
     private void initSpinnerStatus() {
@@ -71,7 +63,6 @@ public class ListaBanios extends AppCompatActivity {
 
     public void filterList(View view) {
         Intent filterList = new Intent(this, ListaBaniosFiltrada.class);
-        filterList.putExtra("MAC_HC05", address);
         startActivity(filterList);
     }
 }

@@ -126,14 +126,10 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
     {
         super.onResume();
 
-        //Obtengo el parametro, aplicando un Bundle, que me indica la Mac Adress del HC05
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            address = extras.getString("MAC_HC05");
-        }
         // registro la activity como listener del sensor
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+        presenter.isEnableBLT();
     }
 
     @Override
@@ -177,9 +173,9 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
 
     public void goToListaBanios(View view) {
         Intent goToList = new Intent(this, ListaBanios.class);
-        goToList.putExtra("MAC_HC05", address);
         startActivity(goToList);
     }
+
     @Override
     public void goToMain() {
         Intent goToMain = new Intent(this, MainActivity.class);
