@@ -15,6 +15,7 @@
         android:backgroundTint="@color/buttons"
         android:onClick="goToWelcome"
         android:text="Ingresar"
+        android:textColor="#F6F3F3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

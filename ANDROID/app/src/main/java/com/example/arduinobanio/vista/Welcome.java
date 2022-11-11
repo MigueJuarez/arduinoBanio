@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -185,6 +186,11 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
     @Override
     public void setEnableBtns(boolean value) {
         btnVerBanios.setEnabled(value);
+        if (value){
+            btnVerBanios.setTextColor(Color.WHITE);
+        } else {
+            btnVerBanios.setTextColor(Color.GRAY);
+        }
     }
 
     @Override

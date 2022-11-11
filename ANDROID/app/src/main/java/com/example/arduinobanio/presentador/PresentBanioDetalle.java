@@ -1,5 +1,7 @@
 package com.example.arduinobanio.presentador;
 
+import static com.example.arduinobanio.vista.MainActivity.DEBUGGER_ENABLED;
+
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
 import android.os.Handler;
@@ -49,7 +51,9 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
     @Override
     public void sendObtenerEstado() {
         model.sendMsg(COMANDO_OBTENER_ESTADO);
-        this.view.showMsg("Obtener Estado enviado");
+        if (DEBUGGER_ENABLED){
+            this.view.showMsg("Obtener Estado enviado");
+        }
     }
 
     @Override
@@ -74,9 +78,12 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
         BluetoothDevice device = model.detectOnePairDevice();
         if (device != null) {
             model.establecerConexionDevice(device);
+            this.view.enableBtns();
         }
         else {
-            this.view.showMsg("Debe emparejar solamente a 1 dispositivo");
+            if (DEBUGGER_ENABLED){
+                this.view.showMsg("Dispositivo no conectado");
+            }
             this.view.disableBtns();
         }
 

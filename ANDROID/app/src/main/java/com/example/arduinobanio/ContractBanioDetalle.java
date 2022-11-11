@@ -11,6 +11,7 @@ public interface ContractBanioDetalle {
         void showMsg(String msg);
         void finishView();
         void disableBtns();
+        void enableBtns();
     }
 
     interface Model {

@@ -1,5 +1,7 @@
 package com.example.arduinobanio.modelo;
 
+import static com.example.arduinobanio.vista.MainActivity.DEBUGGER_ENABLED;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
@@ -62,12 +64,16 @@ public class ModelWelcome implements ContractWelcome.Model {
             //se determina si esta activado el bluethoot
             if (mBluetoothAdapter.isEnabled())
             {
-                this.callBackToViewPresenter.showMsg("El bluetooth se encuentra habilitado");
+                if (DEBUGGER_ENABLED){
+                    this.callBackToViewPresenter.showMsg("El bluetooth se encuentra habilitado");
+                }
                 this.callBackToViewPresenter.setEnableBtns(true);
             }
             else
             {
-                this.callBackToViewPresenter.showMsg("Bluetooth deshabilitado. Se requiere activación");
+                if (DEBUGGER_ENABLED){
+                    this.callBackToViewPresenter.showMsg("Bluetooth deshabilitado. Se requiere activación");
+                }
                 this.callBackToViewPresenter.setEnableBtns(false);
             }
         }
