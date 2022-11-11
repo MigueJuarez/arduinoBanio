@@ -13,10 +13,10 @@ public interface ContractBanioDetalle {
     }
 
     interface Model {
-        void establecerConexionDevice(CallBackToView cb, BluetoothDevice device);
-        void pedirPermisos(CallBackToView cb, Activity activity);
-        Handler Handler_Msg_Hilo_Principal (CallBackToView cb);
-        void sendMsg(CallBackToView cb, String msg);
+        void establecerConexionDevice( BluetoothDevice device);
+        void pedirPermisos( Activity activity);
+        Handler Handler_Msg_Hilo_Principal ();
+        void sendMsg(String msg);
         interface CallBackToView {
             void actualizarEstado(String estado);
             void showMsg(String msg);

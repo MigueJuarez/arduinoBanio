@@ -11,6 +11,11 @@ import java.util.Set;
 
 public class ModelWelcome implements ContractWelcome.Model {
 
+    private CallBackToView callBackToViewPresenter;
+
+    public ModelWelcome(CallBackToView pcb) {
+        this.callBackToViewPresenter = pcb;
+    }
 
     @Override
     public boolean detectPairDevices() {
@@ -29,14 +34,14 @@ public class ModelWelcome implements ContractWelcome.Model {
     }
 
     @Override
-    public void foundDevices(CallBackToView cb, Intent intent) {
+    public void foundDevices(Intent intent) {
         //Atraves del Intent obtengo el evento de Bluethoot que informo el broadcast del SO
         String action = intent.getAction();
         ArrayList<BluetoothDevice> mDeviceList = new ArrayList<BluetoothDevice>();
 
         if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
         {
-            cb.setDevicesFound(mDeviceList);
+            callBackToViewPresenter.setDevicesFound(mDeviceList);
         }
         //si se encontro un dispositivo bluethoot
         else if (BluetoothDevice.ACTION_FOUND.equals(action))

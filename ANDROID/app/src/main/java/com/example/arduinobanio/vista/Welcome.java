@@ -78,7 +78,7 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
 
         registrarBroadcasts();
 
-        presenter = new PresentWelcome(this, new ModelWelcome());
+        presenter = new PresentWelcome(this);
 
         // Inicio sensorManager y me traigo acelerometro
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
