@@ -37,9 +37,6 @@ import com.example.arduinobanio.presentador.PresentWelcome;
 
 public class Welcome extends AppCompatActivity implements ContractWelcome.View, SensorEventListener {
 
-    private SensorManager sensorManager;
-    private Sensor accelerometer;
-
     private TextView textTitulo;
     private TextView textPresentacion;
     private Button btnEmparejar; //seria para ver los dispositivos emparejados
@@ -50,12 +47,12 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
 
     private ContractWelcome.Presenter presenter;
 
-    private ProgressDialog mProgressDlg;
-
     private ArrayList<BluetoothDevice> mDeviceList = new ArrayList<BluetoothDevice>();
 
     private BluetoothAdapter mBluetoothAdapter;
 
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
 
     String[] permissions = new String[]{
             Manifest.permission.BLUETOOTH,
@@ -74,58 +71,20 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
         textTitulo = (TextView) findViewById(R.id.textView3);
         textPresentacion = (TextView) findViewById(R.id.textView4);
         btnVerBanios = (Button) findViewById(R.id.verBanios);
-        //btnBuscarBanios = (Button) findViewById(R.id.); //faltaria agregarlo en el layout
 
-        registrarBroadcasts();
+        btnVerBanios.setOnClickListener(btnListener);
 
         presenter = new PresentWelcome(this);
 
-        // Inicio sensorManager y me traigo acelerometro
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        startSensor();
 
         Log.i("Ejecuto","Ejecuto onCreate");
     }
 
-
-    private void registrarBroadcasts() {
-        //se definen un broadcastReceiver que captura el broadcast del SO cuando captura los siguientes eventos:
-        IntentFilter filter = new IntentFilter();
-
-        filter.addAction(BluetoothDevice.ACTION_FOUND); //Se encuentra un dispositivo bluethoot al realizar una busqueda
-        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED); //Cuando se comienza una busqueda de bluethoot
-        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED); //cuando la busqueda de bluethoot finaliza
-
-        //se define (registra) el handler que captura los broadcast anterirmente mencionados.
-        registerReceiver(mReceiver, filter);
+    private void startSensor() {
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
-
-    protected  void enableComponent()
-    {
-        //se determina si existe bluethoot en el celular
-        if (mBluetoothAdapter != null)
-        {
-            //si el celular soporta bluethoot, se definen los listener para los botones de la activity
-
-            btnVerBanios.setOnClickListener(btnListener);
-
-            //se determina si esta activado el bluethoot
-            if (mBluetoothAdapter.isEnabled())
-            {
-                //se informa si esta habilitado
-                //showEnabled();
-                showToast("El bluetooth se encuentra habilitado");
-            }
-            else
-            {
-                //se informa si esta deshabilitado
-                //showDisabled();
-                showToast("Bluetooth deshabilitado. Se requiere activación");
-            }
-        }
-
-    }
-
 
     //Metodo que chequea si estan habilitados los permisos
     private  boolean checkPermissions() {
@@ -216,30 +175,25 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
         }
     };
 
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            presenter.foundDevices(intent);
-        }
-    };
-
     public void goToListaBanios(View view) {
         Intent goToList = new Intent(this, ListaBanios.class);
         goToList.putExtra("MAC_HC05", address);
         startActivity(goToList);
     }
-
+    @Override
     public void goToMain() {
         Intent goToMain = new Intent(this, MainActivity.class);
         startActivity(goToMain);
     }
 
-    public void showMsg (String msge) {
-        showToast(msge);
+    @Override
+    public void setEnableBtns(boolean value) {
+        btnVerBanios.setEnabled(value);
     }
 
-
-    public void setDevicesFound(ArrayList<BluetoothDevice> pDeviceList) {
-        mDeviceList = pDeviceList;
+    @Override
+    public void showMsg (String msge) {
+        showToast(msge);
     }
 
     /**
@@ -251,31 +205,10 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
         // this.showMsg("onAccuracyChanged");
     }
 
-    private static final float SHAKE_THRESHOLD = 5.25f; // m/S**2
-    private static final int MIN_TIME_BETWEEN_SHAKES_MILLISECS = 1000;
-    private long mLastShakeTime;
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        if (sensorEvent.sensor.getName().equals(accelerometer.getName())) {
-            long curTime = System.currentTimeMillis();
-            if ((curTime - mLastShakeTime) > MIN_TIME_BETWEEN_SHAKES_MILLISECS) {
-
-                float x = sensorEvent.values[0];
-                float y = sensorEvent.values[1];
-                float z = sensorEvent.values[2];
-
-                double acceleration = Math.sqrt(Math.pow(x, 2) +
-                        Math.pow(y, 2) +
-                        Math.pow(z, 2)) - SensorManager.GRAVITY_EARTH;
-                //this.showMsg("Acceleration is " + acceleration + "m/s^2");
-
-                if (acceleration > SHAKE_THRESHOLD) {
-                    mLastShakeTime = curTime;
-                    this.showMsg("Usuario deslogueado");
-                    this.goToMain();
-                }
-            }
-        }
+        presenter.detectShake(sensorEvent, accelerometer);
     }
+
 }

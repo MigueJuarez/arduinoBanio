@@ -58,11 +58,6 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
     }
 
     @Override
-    public void establecerConexionDevice(BluetoothDevice device) {
-        model.establecerConexionDevice(device);
-    }
-
-    @Override
     public Handler Handler_Msg_Hilo_Principal() {
         return model.Handler_Msg_Hilo_Principal();
     }
@@ -72,6 +67,18 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
         if (Objects.nonNull(view)) {
             model.pedirPermisos(activity);
         }
+    }
+
+    @Override
+    public void detectOnePairDevice() {
+        BluetoothDevice device = model.detectOnePairDevice();
+        if (device != null) {
+            model.establecerConexionDevice(device);
+        }
+        else {
+            this.view.showMsg("Debe emparejar solamente a 1 dispositivo");
+        }
+
     }
 
 }

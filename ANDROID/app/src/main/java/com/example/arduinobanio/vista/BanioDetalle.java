@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.arduinobanio.ContractBanioDetalle;
@@ -29,6 +30,9 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
 
     private ContractBanioDetalle.Presenter presenter;
 
+    private Button btnIniciarLimpieza;
+    private Button btnFinalizarLimpieza;
+
     private Handler bluetoothIn;
 
     @Override
@@ -37,6 +41,9 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
         setContentView(R.layout.activity_banio_detalle);
         presenter = new PresentBanioDetalle(this);
         presenter.pedirPermisos(this);
+
+        btnIniciarLimpieza = (Button) findViewById(R.id.button7);
+        btnFinalizarLimpieza = (Button) findViewById(R.id.button6);
     }
 
     //Cada vez que se detecta el evento OnResume se establece la comunicacion con el HC05, creando un socketBluethoot
@@ -44,15 +51,7 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     public void onResume() {
         super.onResume();
 
-        // Obtengo el parametro, aplicando un Bundle, que me indica la Mac Adress del HC05
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-
-        if (Objects.nonNull(extras)) {
-            address = extras.getString("MAC_HC05");
-            BluetoothDevice device = btAdapter.getRemoteDevice(address);
-            presenter.establecerConexionDevice(device);
-        }
+        presenter.detectOnePairDevice();
 
         //defino el Handler de comunicacion entre el hilo Principal  el secundario.
         //El hilo secundario va a mostrar informacion al layout atraves utilizando indeirectamente a este handler
@@ -96,5 +95,9 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
         finish();
     }
 
+    public void disableBtns() {
+        btnIniciarLimpieza.setEnabled(false);
+        btnFinalizarLimpieza.setEnabled(false);
+    }
 
 }

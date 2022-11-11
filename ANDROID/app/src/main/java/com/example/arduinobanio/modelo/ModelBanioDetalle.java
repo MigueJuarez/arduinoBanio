@@ -18,6 +18,7 @@ import com.example.arduinobanio.ContractBanioDetalle;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class ModelBanioDetalle implements ContractBanioDetalle.Model {
@@ -168,6 +169,27 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
                 }
             }
         };
+    }
+
+    @Override
+    public BluetoothDevice detectOnePairDevice() {
+        //Se crea un adaptador para poder manejar el bluethoot del celular
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        if (pairedDevices != null)
+        {
+            if (pairedDevices.size() == 1) {
+                return pairedDevices.iterator().next();
+            }
+            else {
+                return null;
+            }
+        }
+        else{
+            return null;
+        }
+
     }
 
 }

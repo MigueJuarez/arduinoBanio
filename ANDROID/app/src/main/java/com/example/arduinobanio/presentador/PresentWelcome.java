@@ -3,6 +3,8 @@ package com.example.arduinobanio.presentador;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
 
 import com.example.arduinobanio.ContractWelcome;
 import com.example.arduinobanio.modelo.ModelWelcome;
@@ -21,27 +23,29 @@ public class PresentWelcome implements ContractWelcome.Presenter, ContractWelcom
         model = new ModelWelcome(this);
     }
 
-
     @Override
-    public void detectPairDevices() {
-       boolean dispEmparejado =  model.detectPairDevices();
-        if (dispEmparejado == true)
-        {
-            mView.showMsg("Se encontraron dispositivos emparejados");
-        }
-        else {
-            mView.showMsg("No se encontraron dispositivos emparejados");
-        }
+    public void detectShake(SensorEvent sensorEvent, Sensor accelerometer) {
+        model.detectShake(sensorEvent, accelerometer);
     }
 
     @Override
-    public void foundDevices( Intent intent) {
-        model.foundDevices(intent);
+    public void isEnableBLT() {
+         model.isEnableBLT();
+    }
+
+
+    @Override
+    public void showMsg(String msg) {
+        mView.showMsg(msg);
     }
 
     @Override
-    public void setDevicesFound(ArrayList<BluetoothDevice> pDeviceList) {
-        mView.setDevicesFound(pDeviceList);
+    public void goToMain() {
+        mView.goToMain();
     }
 
+    @Override
+    public void setEnableBtns(boolean value) {
+        mView.setEnableBtns(value);
+    }
 }
