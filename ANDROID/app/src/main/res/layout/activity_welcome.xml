@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@color/ic_launcher_background"
     tools:context=".vista.Welcome">
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="330dp"
         android:layout_height="325dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="2sp"
         android:text="En el presente trabajo se propone presentar una solución innovadora a la problemática que representa la higiene en instalaciones sanitarias de acceso masivo. Estableciendo que disponer de condiciones adecuadas para el uso no solo se trata de una cuestión de experiencia de usuario, sino también de salud pública, por lo que se ideó un prototipo que incorpora la electrónica para mejorar la información disponible sobre el estado actual de limpieza de un baño y la gestión eficiente de solicitudes de aseo a los mismos, optimizando el empleo de recursos destinados a tal fin, ya sea en edificios o eventos multitudinarios. "
         android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"

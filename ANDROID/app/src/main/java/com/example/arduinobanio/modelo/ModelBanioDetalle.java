@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
+public class ModelBanioDetalle implements ContractBanioDetalle.Model {
 
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
