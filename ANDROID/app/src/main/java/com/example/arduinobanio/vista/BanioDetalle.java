@@ -35,7 +35,7 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banio_detalle);
-        presenter = new PresentBanioDetalle(this, new ModelBanioDetalle());
+        presenter = new PresentBanioDetalle(this);
         presenter.pedirPermisos(this);
     }
 

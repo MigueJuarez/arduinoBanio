@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 
 import com.example.arduinobanio.ContractWelcome;
+import com.example.arduinobanio.modelo.ModelWelcome;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -15,9 +16,9 @@ public class PresentWelcome implements ContractWelcome.Presenter, ContractWelcom
     private ContractWelcome.Model model;
 
 
-    public PresentWelcome (ContractWelcome.View pView, ContractWelcome.Model pModel) {
+    public PresentWelcome (ContractWelcome.View pView) {
         mView = pView;
-        model = pModel;
+        model = new ModelWelcome(this);
     }
 
 
@@ -35,7 +36,7 @@ public class PresentWelcome implements ContractWelcome.Presenter, ContractWelcom
 
     @Override
     public void foundDevices( Intent intent) {
-        model.foundDevices(this, intent);
+        model.foundDevices(intent);
     }
 
     @Override

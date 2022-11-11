@@ -38,9 +38,14 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
 
     final int handlerState = 0; //used to identify handler message
 
+    private CallBackToView cb;
+
+    public ModelBanioDetalle(CallBackToView pcb) {
+        this.cb = pcb;
+    }
 
     @Override
-    public void establecerConexionDevice(CallBackToView cb, BluetoothDevice device) {
+    public void establecerConexionDevice(BluetoothDevice device) {
 
         //se realiza la conexion del Bluethoot crea y se conectandose a atraves de un socket
         try {
@@ -64,7 +69,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
 
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
-    public void pedirPermisos(ContractBanioDetalle.Model.CallBackToView cb, Activity activity) {
+    public void pedirPermisos(Activity activity) {
 
         String[] permissions = new String[]{
                 Manifest.permission.BLUETOOTH,
@@ -123,7 +128,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
         mConnectedThread.start();
     }
 
-    public void sendMsg(CallBackToView cb, String msg) {
+    public void sendMsg(String msg) {
         mConnectedThread.write(cb, msg);
     }
 
@@ -143,7 +148,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
     }
 
     //Handler que permite mostrar datos en el Layout al hilo secundario
-    public Handler Handler_Msg_Hilo_Principal (CallBackToView cb)
+    public Handler Handler_Msg_Hilo_Principal ()
     {
         return new Handler(){
             public void handleMessage(android.os.Message msg)

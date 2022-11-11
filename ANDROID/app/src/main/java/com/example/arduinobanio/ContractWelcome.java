@@ -15,7 +15,7 @@ public interface ContractWelcome {
     interface Model {
         boolean detectPairDevices();
 
-        void foundDevices(CallBackToView cb, Intent intent);
+        void foundDevices(Intent intent);
 
         interface CallBackToView {
             void setDevicesFound(ArrayList<BluetoothDevice> pDeviceList);

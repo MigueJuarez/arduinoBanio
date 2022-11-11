@@ -72,7 +72,7 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View {
 
         registrarBroadcasts();
 
-        presenter = new PresentWelcome(this, new ModelWelcome());
+        presenter = new PresentWelcome(this);
 
         Log.i("Ejecuto","Ejecuto onCreate");
     }

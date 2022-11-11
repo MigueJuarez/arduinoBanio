@@ -19,9 +19,9 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
     private final String COMANDO_FINALIZAR_LIMPIEZA = "F";
     private final String COMANDO_OBTENER_ESTADO = "E";
 
-    public PresentBanioDetalle(ContractBanioDetalle.View pView, ContractBanioDetalle.Model pModel) {
+    public PresentBanioDetalle(ContractBanioDetalle.View pView) {
         this.view = pView;
-        this.model = pModel;
+        this.model = new ModelBanioDetalle(this);
     }
 
     @Override
@@ -36,19 +36,19 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
 
     @Override
     public void sendIniciarLimpieza() {
-        model.sendMsg(this, COMANDO_INICIAR_LIMPIEZA);
+        model.sendMsg(COMANDO_INICIAR_LIMPIEZA);
         this.view.showMsg("Iniciar limpieza enviado");
     }
 
     @Override
     public void sendFinalizarLimpieza() {
-        model.sendMsg(this, COMANDO_FINALIZAR_LIMPIEZA);
+        model.sendMsg(COMANDO_FINALIZAR_LIMPIEZA);
         this.view.showMsg("Finalizar limpieza enviado");
     }
 
     @Override
     public void sendObtenerEstado() {
-        model.sendMsg(this, COMANDO_OBTENER_ESTADO);
+        model.sendMsg(COMANDO_OBTENER_ESTADO);
         this.view.showMsg("Obtener Estado enviado");
     }
 
@@ -59,18 +59,18 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
 
     @Override
     public void establecerConexionDevice(BluetoothDevice device) {
-        model.establecerConexionDevice(this, device);
+        model.establecerConexionDevice(device);
     }
 
     @Override
     public Handler Handler_Msg_Hilo_Principal() {
-        return model.Handler_Msg_Hilo_Principal(this);
+        return model.Handler_Msg_Hilo_Principal();
     }
 
     @Override
     public void pedirPermisos(Activity activity) {
         if (Objects.nonNull(view)) {
-            model.pedirPermisos(this, activity);
+            model.pedirPermisos(activity);
         }
     }
 

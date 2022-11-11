@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 
+import com.example.arduinobanio.ContractBanioDetalle;
 import com.example.arduinobanio.ContractWelcome;
 
 import java.util.ArrayList;
@@ -11,6 +12,11 @@ import java.util.Set;
 
 public class ModelWelcome implements ContractWelcome.Model {
 
+    private CallBackToView cb;
+
+    public ModelWelcome(CallBackToView pcb) {
+        this.cb = pcb;
+    }
 
     @Override
     public boolean detectPairDevices() {
@@ -29,7 +35,7 @@ public class ModelWelcome implements ContractWelcome.Model {
     }
 
     @Override
-    public void foundDevices(CallBackToView cb, Intent intent) {
+    public void foundDevices(Intent intent) {
         //Atraves del Intent obtengo el evento de Bluethoot que informo el broadcast del SO
         String action = intent.getAction();
         ArrayList<BluetoothDevice> mDeviceList = new ArrayList<BluetoothDevice>();
