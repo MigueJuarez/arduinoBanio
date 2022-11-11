@@ -8,20 +8,15 @@ import android.bluetooth.BluetoothSocket;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.arduinobanio.ContractBanioDetalle;
-import com.example.arduinobanio.ContractWelcome;
-import com.example.arduinobanio.presentador.PresentBanioDetalle;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,10 +33,10 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
 
     final int handlerState = 0; //used to identify handler message
 
-    private CallBackToView cb;
+    private CallBackToView callBackToViewPresenter;
 
     public ModelBanioDetalle(CallBackToView pcb) {
-        this.cb = pcb;
+        this.callBackToViewPresenter = pcb;
     }
 
     @Override
@@ -51,7 +46,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
         try {
             btSocket = createBluetoothSocket(device);
         } catch (IOException e) {
-            cb.showMsg( "La creacción del Socket fallo");
+            callBackToViewPresenter.showMsg( "La creacción del Socket fallo");
         }
         // Establish the Bluetooth socket connection.
         try {
@@ -87,15 +82,15 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
         for (String permiso : permissions) {
             if (ContextCompat.checkSelfPermission(activity.getApplicationContext() , permiso) != PackageManager.PERMISSION_GRANTED) {
                 // Permiso no aceptado por el momento
-                cb.showMsg("Permiso " + permiso +  " no aceptado por el momento");
+                callBackToViewPresenter.showMsg("Permiso " + permiso +  " no aceptado por el momento");
                 listPermissionsNeeded.add(permiso); // agrego el permiso para hacer el requestPermissions
             } else {
                 // Ya tenemos los permisos
-                cb.showMsg("Ya tenemos permiso de " + permiso);
+                callBackToViewPresenter.showMsg("Ya tenemos permiso de " + permiso);
             }
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permiso)) {
                 // Permisos rechazados, aceptarlos desde ajustes
-                cb.showMsg("Permiso " + permiso + "debe otorgarse desde Ajustes");
+                callBackToViewPresenter.showMsg("Permiso " + permiso + "debe otorgarse desde Ajustes");
             }
         }
 
@@ -129,7 +124,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
     }
 
     public void sendMsg(String msg) {
-        mConnectedThread.write(cb, msg);
+        mConnectedThread.write(callBackToViewPresenter, msg);
     }
 
     public void cerrarConexion() {
@@ -166,7 +161,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model  {
                     {
                         String dataInPrint = recDataString.substring(0, endOfLineIndex);
 
-                        cb.actualizarEstado(dataInPrint);
+                        callBackToViewPresenter.actualizarEstado(dataInPrint);
 
                         recDataString.delete(0, recDataString.length());
                     }
