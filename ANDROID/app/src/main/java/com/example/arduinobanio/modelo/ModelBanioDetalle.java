@@ -1,5 +1,7 @@
 package com.example.arduinobanio.modelo;
 
+import static com.example.arduinobanio.vista.MainActivity.DEBUGGER_ENABLED;
+
 import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -85,15 +87,21 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
         for (String permiso : permissions) {
             if (ContextCompat.checkSelfPermission(activity.getApplicationContext() , permiso) != PackageManager.PERMISSION_GRANTED) {
                 // Permiso no aceptado por el momento
-                callBackToViewPresenter.showMsg("Permiso " + permiso +  " no aceptado por el momento");
+                if (DEBUGGER_ENABLED){
+                    callBackToViewPresenter.showMsg("Permiso " + permiso +  " no aceptado por el momento");
+                }
                 listPermissionsNeeded.add(permiso); // agrego el permiso para hacer el requestPermissions
             } else {
                 // Ya tenemos los permisos
-                callBackToViewPresenter.showMsg("Ya tenemos permiso de " + permiso);
+                if (DEBUGGER_ENABLED){
+                    callBackToViewPresenter.showMsg("Ya tenemos permiso de " + permiso);
+                }
             }
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permiso)) {
                 // Permisos rechazados, aceptarlos desde ajustes
-                callBackToViewPresenter.showMsg("Permiso " + permiso + "debe otorgarse desde Ajustes");
+                if (DEBUGGER_ENABLED){
+                    callBackToViewPresenter.showMsg("Permiso " + permiso + "debe otorgarse desde Ajustes");
+                }
             }
         }
 

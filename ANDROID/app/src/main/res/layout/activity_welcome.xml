@@ -48,6 +48,7 @@
         android:backgroundTint="@color/buttons"
         android:onClick="goToListaBanios"
         android:text="ver baños"
+        android:textColor="#F6F3F3"
         app:iconTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

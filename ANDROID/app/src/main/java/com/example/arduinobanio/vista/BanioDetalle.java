@@ -7,6 +7,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -98,7 +100,17 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     @Override
     public void disableBtns() {
         btnIniciarLimpieza.setEnabled(false);
+        btnIniciarLimpieza.setTextColor(Color.GRAY);
         btnFinalizarLimpieza.setEnabled(false);
+        btnFinalizarLimpieza.setTextColor(Color.GRAY);
+    }
+
+    @Override
+    public void enableBtns() {
+        btnIniciarLimpieza.setEnabled(true);
+        btnIniciarLimpieza.setTextColor(Color.WHITE);
+        btnFinalizarLimpieza.setEnabled(true);
+        btnFinalizarLimpieza.setTextColor(Color.WHITE);
     }
 
 }

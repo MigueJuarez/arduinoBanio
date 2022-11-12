@@ -14,7 +14,7 @@ import com.example.arduinobanio.R;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    public static final boolean DEBUGGER_ENABLED = false;
 
     private TextView textView2;
     private TextView textView;
