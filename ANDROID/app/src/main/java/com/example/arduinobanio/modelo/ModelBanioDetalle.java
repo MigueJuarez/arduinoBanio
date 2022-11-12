@@ -52,7 +52,9 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
         // Establish the Bluetooth socket connection.
         try {
             btSocket.connect();
+            callBackToViewPresenter.showMsg( "La conexion del Socket se realizo correctamente");
         } catch (IOException e) {
+            callBackToViewPresenter.showMsg( "La conexion del Socket fallo");
             try {
                 btSocket.close();
             } catch (IOException e2) {
