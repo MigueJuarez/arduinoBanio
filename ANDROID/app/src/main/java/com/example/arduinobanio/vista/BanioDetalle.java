@@ -66,13 +66,13 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     }
 
     public void iniciarLimpieza(View view) {
-        //TODO presenter.sendIniciarLimpieza();
+        presenter.sendIniciarLimpieza();
 
         //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
     }
 
     public void finalizarLimpieza(View view) {
-        //TODO presenter.sendFinalizarLimpieza();
+        presenter.sendFinalizarLimpieza();
 
         //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
     }
