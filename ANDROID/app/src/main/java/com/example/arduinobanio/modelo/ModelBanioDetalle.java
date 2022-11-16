@@ -3,6 +3,7 @@ package com.example.arduinobanio.modelo;
 import static com.example.arduinobanio.vista.MainActivity.DEBUGGER_ENABLED;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -32,6 +33,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
     private ConnectedThread mConnectedThread;
 
     // SPP UUID service  - Funciona en la mayoria de los dispositivos
+
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     final int handlerState = 0; //used to identify handler message
@@ -49,14 +51,16 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
         try {
             btSocket = createBluetoothSocket(device);
         } catch (IOException e) {
-            callBackToViewPresenter.showMsg( "La creacción del Socket fallo");
+            callBackToViewPresenter.showMsg( "La creacción del Socket 1 fallo");
         }
         // Establish the Bluetooth socket connection.
         try {
-            btSocket.connect();
-            callBackToViewPresenter.showMsg( "La conexion del Socket se realizo correctamente");
+            if (!btSocket.isConnected()) {
+                btSocket.connect();
+            }
+            callBackToViewPresenter.showMsg( "La conexion del Socket 2 se realizo correctamente");
         } catch (IOException e) {
-            callBackToViewPresenter.showMsg( "La conexion del Socket fallo");
+            callBackToViewPresenter.showMsg( "La conexion del Socket 2 fallo");
             try {
                 btSocket.close();
             } catch (IOException e2) {
@@ -148,9 +152,10 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
     }
 
     //Metodo que crea el socket bluethoot
+    @SuppressLint("MissingPermission")
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
 
-        return  device.createRfcommSocketToServiceRecord(BTMODULEUUID);
+        return  device.createInsecureRfcommSocketToServiceRecord(BTMODULEUUID);
     }
 
     //Handler que permite mostrar datos en el Layout al hilo secundario

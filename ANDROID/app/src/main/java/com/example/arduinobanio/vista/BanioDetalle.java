@@ -46,12 +46,6 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
 
         btnIniciarLimpieza = (Button) findViewById(R.id.button7);
         btnFinalizarLimpieza = (Button) findViewById(R.id.button6);
-    }
-
-    //Cada vez que se detecta el evento OnResume se establece la comunicacion con el HC05, creando un socketBluethoot
-    @Override
-    public void onResume() {
-        super.onResume();
 
         presenter.detectOnePairDevice();
 
@@ -59,6 +53,14 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
         //El hilo secundario va a mostrar informacion al layout atraves utilizando indeirectamente a este handler
         bluetoothIn = presenter.Handler_Msg_Hilo_Principal();
         //TODO presenter.sendObtenerEstado();
+
+    }
+
+    //Cada vez que se detecta el evento OnResume se establece la comunicacion con el HC05, creando un socketBluethoot
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     private void showToast(String message) {
@@ -67,7 +69,7 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
 
     public void iniciarLimpieza(View view) {
         presenter.sendIniciarLimpieza();
-
+        //presenter.sendObtenerEstado();
         //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
     }
 

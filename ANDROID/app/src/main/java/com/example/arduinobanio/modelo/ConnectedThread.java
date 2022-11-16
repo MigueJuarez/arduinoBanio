@@ -6,6 +6,7 @@ package com.example.arduinobanio.modelo;
 
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.arduinobanio.ContractBanioDetalle;
 
@@ -33,7 +34,9 @@ public class ConnectedThread extends Thread
             //Create I/O streams for connection
             tmpIn = socket.getInputStream();
             tmpOut = socket.getOutputStream();
-        } catch (IOException e) { }
+        } catch (IOException e) {
+            Log.i("Error","error");
+        }
 
         mmInStream = tmpIn;
         mmOutStream = tmpOut;
