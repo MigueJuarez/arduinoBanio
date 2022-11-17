@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@color/ic_launcher_background"
     android:onClick="goToDetail"
-    tools:context=".ListaBanios">
+    tools:context=".vista.ListaBanios">
 
     <TextView
         android:id="@+id/textView11"
@@ -41,6 +41,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabGoToHome"
+        style="@style/CardView.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -60,6 +61,7 @@
         android:layout_height="38dp"
         android:backgroundTint="@color/buttons"
         android:text="Filtrar"
+        android:textColor="#F6F3F3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.924"

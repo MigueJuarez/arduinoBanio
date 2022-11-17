@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
-    tools:context=".BanioDetalle">
+    android:background="@color/ic_launcher_background"
+    tools:context=".vista.BanioDetalle">
 
     <TextView
         android:id="@+id/textView10"
@@ -15,6 +15,7 @@
         android:layout_marginTop="24dp"
         android:text="Estado:"
         android:textAlignment="viewStart"
+        android:textColor="#F6F3F3"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/textView5"
         app:layout_constraintHorizontal_bias="0.153"
@@ -29,6 +30,7 @@
         android:layout_marginEnd="36dp"
         android:text="Libre"
         android:textAlignment="center"
+        android:textColor="#F5FBF9"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:onClick="goToList"
+        android:onClick="goToListaBanios"
         app:backgroundTint="@color/buttons"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,13 +71,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="217dp"
-        android:layout_height="237dp"
-        android:layout_marginTop="176dp"
+        android:layout_width="264dp"
+        android:layout_height="196dp"
+        android:layout_marginTop="212dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:srcCompat="@drawable/men_women" />
+        app:srcCompat="@drawable/b" />
 
     <TextView
         android:id="@+id/textView9"
@@ -84,6 +87,7 @@
         android:layout_marginTop="40dp"
         android:text="Sucio"
         android:textAlignment="center"
+        android:textColor="#F5FBF9"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,6 +103,7 @@
         android:layout_marginTop="40dp"
         android:text="Nivel Suciedad:"
         android:textAlignment="viewStart"
+        android:textColor="#F6F3F3"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/textView9"
         app:layout_constraintHorizontal_bias="0.076"
@@ -113,11 +118,13 @@
         android:backgroundTint="@color/buttons"
         android:onClick="iniciarLimpieza"
         android:text="Iniciar Limpieza"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/verBanios"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="UnknownIdInLayout" />
 
     <Button
         android:id="@+id/button6"
@@ -127,6 +134,7 @@
         android:backgroundTint="@color/buttons"
         android:onClick="finalizarLimpieza"
         android:text="FINALIZAR LIMPIEZA"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"

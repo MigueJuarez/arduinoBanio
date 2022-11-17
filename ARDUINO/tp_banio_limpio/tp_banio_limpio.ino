@@ -214,6 +214,10 @@ int leerBTH()
   if (miBT.available())       // si hay informacion disponible desde modulo
   {
     msgeBT = char(miBT.read());
+    log("Llego bien la letra ");
+    log((char)msgeBT);
+
+    
   }
   
   hayEvento = (enviarEstadoActual(msgeBT));
