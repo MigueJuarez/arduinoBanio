@@ -134,7 +134,8 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
     private void startComunicacion() {
         //Una establecida la conexion con el Hc05 se crea el hilo secundario, el cual va a recibir
         // los datos de Arduino atraves del bluethoot
-        mConnectedThread = new ConnectedThread(btSocket);
+        Handler hand = Handler_Msg_Hilo_Principal();
+        mConnectedThread = new ConnectedThread(btSocket, hand);
         mConnectedThread.start();
     }
 
@@ -159,7 +160,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
     }
 
     //Handler que permite mostrar datos en el Layout al hilo secundario
-    public Handler Handler_Msg_Hilo_Principal ()
+    private Handler Handler_Msg_Hilo_Principal ()
     {
         return new Handler(){
             public void handleMessage(android.os.Message msg)

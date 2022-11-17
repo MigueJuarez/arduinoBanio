@@ -24,7 +24,7 @@ public class ConnectedThread extends Thread
     final int handlerState = 0; //used to identify handler message
 
     //Constructor de la clase del hilo secundario
-    public ConnectedThread(BluetoothSocket socket)
+    public ConnectedThread(BluetoothSocket socket, Handler handler )
     {
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
@@ -40,6 +40,8 @@ public class ConnectedThread extends Thread
 
         mmInStream = tmpIn;
         mmOutStream = tmpOut;
+
+        bluetoothIn = handler;
     }
 
     //metodo run del hilo, que va a entrar en una espera activa para recibir los msjs del HC05
@@ -52,10 +54,10 @@ public class ConnectedThread extends Thread
         while (true)
         {
             try
-            {
-                //se leen los datos del Bluethoot
-                bytes = mmInStream.read(buffer);
-                String readMessage = new String(buffer, 0, bytes);
+                {
+                    //se leen los datos del Bluethoot
+                    bytes = mmInStream.read(buffer);
+                    String readMessage = new String(buffer, 0, bytes);
 
                 //se muestran en el layout de la activity, utilizando el handler del hilo
                 // principal antes mencionado

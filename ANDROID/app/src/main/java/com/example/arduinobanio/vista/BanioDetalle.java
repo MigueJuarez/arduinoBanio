@@ -35,8 +35,6 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     private Button btnIniciarLimpieza;
     private Button btnFinalizarLimpieza;
 
-    private Handler bluetoothIn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +47,6 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
 
         presenter.detectOnePairDevice();
 
-        //defino el Handler de comunicacion entre el hilo Principal  el secundario.
-        //El hilo secundario va a mostrar informacion al layout atraves utilizando indeirectamente a este handler
-        bluetoothIn = presenter.Handler_Msg_Hilo_Principal();
         //TODO presenter.sendObtenerEstado();
 
     }
@@ -68,14 +63,13 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     }
 
     public void iniciarLimpieza(View view) {
-        presenter.sendIniciarLimpieza();
-        //presenter.sendObtenerEstado();
+        //presenter.sendIniciarLimpieza();
+        presenter.sendObtenerEstado();
         //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
     }
 
     public void finalizarLimpieza(View view) {
         presenter.sendFinalizarLimpieza();
-
         //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
     }
 
@@ -86,6 +80,7 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
 
     @Override
     public void actualizarEstado(String estado) {
+
         //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
     }
 
