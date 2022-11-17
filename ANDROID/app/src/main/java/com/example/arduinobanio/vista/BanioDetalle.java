@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arduinobanio.ContractBanioDetalle;
@@ -34,6 +35,7 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
 
     private Button btnIniciarLimpieza;
     private Button btnFinalizarLimpieza;
+    private TextView txtEstado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
 
         btnIniciarLimpieza = (Button) findViewById(R.id.button7);
         btnFinalizarLimpieza = (Button) findViewById(R.id.button6);
+
+        txtEstado = (TextView) findViewById(R.id.textView5);
 
         presenter.detectOnePairDevice();
 
@@ -80,7 +84,7 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
 
     @Override
     public void actualizarEstado(String estado) {
-
+        txtEstado.setText(estado);
         //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
     }
 
