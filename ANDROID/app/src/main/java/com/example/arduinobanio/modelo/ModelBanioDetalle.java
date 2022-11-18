@@ -11,6 +11,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
@@ -162,7 +163,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
     //Handler que permite mostrar datos en el Layout al hilo secundario
     private Handler Handler_Msg_Hilo_Principal ()
     {
-        return new Handler(){
+        return new Handler(Looper.getMainLooper()) {
             public void handleMessage(android.os.Message msg)
             {
                 //si se recibio un msj del hilo secundario
