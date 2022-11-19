@@ -343,9 +343,7 @@ void configuracionDeValores()
     lcd.setRGB(colorR, colorG, colorB);
 
     // Print a message to the LCD.
-    lcd.print("DIRT: ---");
-
-    delay(1000);      
+    lcd.print("DIRT: ---");     
   
     pinMode(SWITCH,INPUT);
     pinMode(SOLICITAR_LIMPIEZA,INPUT);
