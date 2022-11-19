@@ -207,17 +207,61 @@ int verificarEventoPulsadorDeLimpieza()
     return hayEvento;
 }
 
+/*
 int leerBTH()
 {
   char msgeBT;
+    
+  if (miBT.available())
+  {
+    msgeBT = char(miBT.read());
+    log("Llego bien la letra ");
+    log((char)msgeBT);
+
+    
+  }
+  
+  hayEvento = (enviarEstadoActual(msgeBT));
+  hayEvento = (verificarEventoBTELimpieza(msgeBT));
+  
+  return hayEvento;
+}*/
+
+
+int leerBTH()
+{
+  char msgeBT = '0';
     
   if (miBT.available())       // si hay informacion disponible desde modulo
   {
     msgeBT = char(miBT.read());
     log("Llego bien la letra ");
-    log((char)msgeBT);
+    log(msgeBT);
   }
 
+ hayEvento = 0;
+  
+  if (msgeBT == 'I' || msgeBT == 'F')
+  {
+    //log("Me llego una i o una f");
+    tipoEvento = COMENZAR_O_FINALIZAR_LIMPIEZA;
+    hayEvento = 1;
+  }
+  else if (msgeBT == 'E')
+  {
+    tipoEvento = ENVIAR_ESTADO;
+    hayEvento = 1;
+    //log("Me llego una e");
+  }
+  
+  return hayEvento;
+}
+
+
+/*consiste en realizar la lectura del Modulo BTE para verificar
+si se generó un evento*/
+/*int verificarEventoBTELimpieza(char msgeBT)
+{
   hayEvento = 0;
   
   if (msgeBT == 'I' || msgeBT == 'F')
@@ -226,7 +270,16 @@ int leerBTH()
     hayEvento = 1;
     log("Me llego una i o una f");
   }
-  else if (msgeBT == 'E')
+  
+  return hayEvento;
+}*/
+
+/*esta funcion envia el estado actual del baño*/
+/*int enviarEstadoActual(char msgeBT)
+{
+  hayEvento = 0;
+  
+  if (msgeBT == 'E')
   {
     tipoEvento = ENVIAR_ESTADO;
     hayEvento = 1;
@@ -234,8 +287,7 @@ int leerBTH()
   }
   
   return hayEvento;
-}
-
+}*/
 
 /*esta funcion toma los eventos provenientes de cada
 uno de los sensores*/
@@ -340,6 +392,7 @@ void maquinaDeEstados()
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1," ---       ");
                 log("ESTADO_LIBRE","EVENTO_ENTRA_PERSONA");
                 estadoActual = OCUPADO;
+                miBT.write('O');
                 tipoEvento = CONTINUAR;
                 break;
               case SOLICITUD_LIMPIEZA:
@@ -349,10 +402,9 @@ void maquinaDeEstados()
                 log("ESTADO_LIBRE","EVENTO_SOLICITUD_LIMPIEZA");
                 estadoActual = PENDIENTE_DE_LIMPIEZA_LIBRE;
                 
-                
                 //BLUETH
                 // if (miBT.available())     // si hay informacion disponible desde el miBT
-                miBT.write("SOLICITUD");   // lee monitor serial y envia a Bluetooth
+                miBT.write('S');   // lee monitor serial y envia a Bluetooth
                 
                 break;
               case VARIACION_NIVEL_DE_SUCIEDAD:
@@ -366,7 +418,7 @@ void maquinaDeEstados()
                 estadoActual = LIBRE;
                 break;
               case ENVIAR_ESTADO:
-                miBT.write("LIBRE");
+                miBT.write('L');
                 tipoEvento = CONTINUAR;
                 break;
           }
@@ -379,13 +431,14 @@ void maquinaDeEstados()
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1,nivel_suciedad[estadoAnteriorNivelDeSuciedad]);
                 log("ESTADO_OCUPADO","EVENTO_SALE_PERSONA");
                 estadoActual = LIBRE;
+                miBT.write('L');
                 break;
               case CONTINUAR:
                 //log("ESTADO_OCUPADO","EVENTO_CONTINUAR");
                 estadoActual = OCUPADO;
                 break;
               case ENVIAR_ESTADO:
-                miBT.write("OCUPADO");
+                miBT.write('O');
                 tipoEvento = CONTINUAR;
                 break;
           }
@@ -398,6 +451,7 @@ void maquinaDeEstados()
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1," ---       ");
                 log("ESTADO_PENDIENTE_DE_LIMPIEZA_LIBRE","EVENTO_ENTRA_PERSONA");
                 estadoActual = PENDIENTE_DE_LIMPIEZA_OCUPADO;
+                miBT.write('O');
                 tipoEvento = CONTINUAR;
                 break;
               case COMENZAR_O_FINALIZAR_LIMPIEZA:
@@ -432,7 +486,7 @@ void maquinaDeEstados()
                 estadoActual = PENDIENTE_DE_LIMPIEZA_LIBRE;
                 break;
               case ENVIAR_ESTADO:
-                miBT.write("PENDIENTE_DE_LIMPIEZA_LIBRE");
+                miBT.write('P');
                 tipoEvento = CONTINUAR;
                 break;
           }
@@ -444,6 +498,7 @@ void maquinaDeEstados()
                 modificarColorLed(CAMBIAR_COLOR_VERDE);
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1,nivel_suciedad[estadoAnteriorNivelDeSuciedad]);
                 log("ESTADO_PENDIENTE_DE_LIMPIEZA_OCUPADO","EVENTO_SALE_PERSONA");
+                miBT.write('L');
                 estadoActual = PENDIENTE_DE_LIMPIEZA_LIBRE;
                 tipoEvento = CONTINUAR;
                 break;
@@ -459,7 +514,7 @@ void maquinaDeEstados()
                 estadoActual = PENDIENTE_DE_LIMPIEZA_OCUPADO;
                 break;
               case ENVIAR_ESTADO:
-                miBT.write("PENDIENTE_DE_LIMPIEZA_OCUPADO");
+                miBT.write('O');
                 tipoEvento = CONTINUAR;
                 break;
           }
@@ -471,6 +526,7 @@ void maquinaDeEstados()
                 modificarColorLed(CAMBIAR_COLOR_VERDE);
                 log("ESTADO_EN_LIMPIEZA","EVENTO_CONTINUAR");
                 estadoActual = LIBRE;
+                miBT.write('L');
                 tipoEvento = CONTINUAR;
                 break;
               case VARIACION_NIVEL_DE_SUCIEDAD:
@@ -484,7 +540,7 @@ void maquinaDeEstados()
                 estadoActual = EN_LIMPIEZA;
                 break;
               case ENVIAR_ESTADO:
-                miBT.write("EN_LIMPIEZA");
+                miBT.write('E');
                 tipoEvento = CONTINUAR;
                 break;                
           }
