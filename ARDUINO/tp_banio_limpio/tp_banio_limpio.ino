@@ -216,20 +216,8 @@ int leerBTH()
     msgeBT = char(miBT.read());
     log("Llego bien la letra ");
     log((char)msgeBT);
-
-    
   }
-  
-  hayEvento = (enviarEstadoActual(msgeBT));
-  hayEvento = (verificarEventoBTELimpieza(msgeBT));
-  
-  return hayEvento;
-}
 
-/*consiste en realizar la lectura del Modulo BTE para verificar
-si se generó un evento*/
-int verificarEventoBTELimpieza(char msgeBT)
-{
   hayEvento = 0;
   
   if (msgeBT == 'I' || msgeBT == 'F')
@@ -238,16 +226,7 @@ int verificarEventoBTELimpieza(char msgeBT)
     hayEvento = 1;
     log("Me llego una i o una f");
   }
-  
-  return hayEvento;
-}
-
-/*esta funcion envia el estado actual del baño*/
-int enviarEstadoActual(char msgeBT)
-{
-  hayEvento = 0;
-  
-  if (msgeBT == 'E')
+  else if (msgeBT == 'E')
   {
     tipoEvento = ENVIAR_ESTADO;
     hayEvento = 1;
@@ -256,6 +235,7 @@ int enviarEstadoActual(char msgeBT)
   
   return hayEvento;
 }
+
 
 /*esta funcion toma los eventos provenientes de cada
 uno de los sensores*/

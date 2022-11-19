@@ -45,6 +45,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
         this.callBackToViewPresenter = pcb;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void establecerConexionDevice(BluetoothDevice device) {
 
@@ -130,8 +131,6 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
         }*/
     }
 
-
-
     private void startComunicacion() {
         //Una establecida la conexion con el Hc05 se crea el hilo secundario, el cual va a recibir
         // los datos de Arduino atraves del bluethoot
@@ -156,7 +155,6 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
     //Metodo que crea el socket bluethoot
     @SuppressLint("MissingPermission")
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
-
         return  device.createInsecureRfcommSocketToServiceRecord(BTMODULEUUID);
     }
 
@@ -172,17 +170,22 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
                     //voy concatenando el msj
                     String readMessage = (String) msg.obj;
                     recDataString.append(readMessage);
-                    int endOfLineIndex = recDataString.indexOf("\r\n");
 
-                    //cuando recibo toda una linea la muestro en el layout
-                    if (endOfLineIndex > 0)
-                    {
-                        String dataInPrint = recDataString.substring(0, endOfLineIndex);
-
-                        callBackToViewPresenter.actualizarEstado(dataInPrint);
-
-                        recDataString.delete(0, recDataString.length());
+                    String dataInPrint = "";
+                    if ("L".equals(readMessage)) {
+                        dataInPrint = "Libre";
+                    } else if ("O".equals(readMessage)) {
+                        dataInPrint = "Ocupado";
+                    } else if ("S".equals(readMessage)){
+                        dataInPrint = "Pendiente";
+                    } else if ("P".equals(readMessage)){
+                        dataInPrint = "Pendiente";
+                    } else if ("E".equals(readMessage)){
+                        dataInPrint = "En Limpieza";
                     }
+
+                    callBackToViewPresenter.actualizarEstado(dataInPrint);
+                    recDataString.delete(0, recDataString.length());
                 }
             }
         };

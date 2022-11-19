@@ -77,7 +77,6 @@ public class ConnectedThread extends Thread
         } catch (IOException e) {
             //if you cannot write, close the application
             cb.showMsg("La conexion fallo");
-
             cb.finishView();
         }
     }

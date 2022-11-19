@@ -50,16 +50,13 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
         txtEstado = (TextView) findViewById(R.id.textView5);
 
         presenter.detectOnePairDevice();
-
-        //TODO presenter.sendObtenerEstado();
-
+        presenter.sendObtenerEstado();
     }
 
     //Cada vez que se detecta el evento OnResume se establece la comunicacion con el HC05, creando un socketBluethoot
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     private void showToast(String message) {
@@ -67,14 +64,13 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     }
 
     public void iniciarLimpieza(View view) {
-        //presenter.sendIniciarLimpieza();
+        presenter.sendIniciarLimpieza();
         presenter.sendObtenerEstado();
-        //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
     }
 
     public void finalizarLimpieza(View view) {
         presenter.sendFinalizarLimpieza();
-        //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
+        presenter.sendObtenerEstado();
     }
 
     public void goToListaBanios(View view) {
@@ -85,7 +81,6 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     @Override
     public void actualizarEstado(String estado) {
         txtEstado.setText(estado);
-        //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
     }
 
     @Override
