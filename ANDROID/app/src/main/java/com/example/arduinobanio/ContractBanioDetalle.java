@@ -20,6 +20,8 @@ public interface ContractBanioDetalle {
         void pedirPermisos( Activity activity);
         void sendMsg(String msg);
 
+        void deleteSocket();
+
         interface CallBackToView {
             void actualizarEstado(String estado);
             void showMsg(String msg);
@@ -34,6 +36,7 @@ public interface ContractBanioDetalle {
         void sendIniciarLimpieza();
         void sendFinalizarLimpieza();
         void detectOnePairDevice();
+        void deleteSocket();
     }
 
 

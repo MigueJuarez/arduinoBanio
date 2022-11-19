@@ -83,4 +83,9 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
         }
 
     }
+
+    @Override
+    public void deleteSocket() {
+        model.deleteSocket();
+    }
 }

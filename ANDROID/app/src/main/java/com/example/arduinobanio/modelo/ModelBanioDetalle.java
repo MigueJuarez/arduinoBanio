@@ -143,6 +143,11 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
         mConnectedThread.write(callBackToViewPresenter, msg);
     }
 
+    @Override
+    public void deleteSocket() {
+        this.cerrarConexion();
+    }
+
     public void cerrarConexion() {
         try {
             //Don't leave Bluetooth sockets open when leaving activity

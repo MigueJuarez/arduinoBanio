@@ -74,6 +74,7 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
     }
 
     public void goToListaBanios(View view) {
+        presenter.deleteSocket();
         Intent goToList = new Intent(this, ListaBanios.class);
         startActivity(goToList);
     }
@@ -109,4 +110,9 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
         btnFinalizarLimpieza.setTextColor(Color.WHITE);
     }
 
+    @Override
+    public void onDestroy() {
+        presenter.deleteSocket();
+        super.onDestroy();
+    }
 }
