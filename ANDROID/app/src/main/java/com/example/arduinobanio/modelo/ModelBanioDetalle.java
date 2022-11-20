@@ -33,6 +33,12 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
 
     private ConnectedThread mConnectedThread;
 
+    private final String COMANDO_ESTADO_LIBRE = "L";
+    private final String COMANDO_ESTADO_OCUPADO = "O";
+    private final String COMANDO_ESTADO_SOLICITUD_LIMPIEZA = "S";
+    private final String COMANDO_ESTADO_PENDIENTE_LIMPIEZA = "P";
+    private final String COMANDO_ESTADO_EN_LIMPIEZA = "E";
+
     // SPP UUID service  - Funciona en la mayoria de los dispositivos
 
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -178,15 +184,15 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
                     recDataString.append(readMessage);
 
                     String dataInPrint = "";
-                    if ("L".equals(readMessage)) {
+                    if (COMANDO_ESTADO_LIBRE.equals(readMessage)) {
                         dataInPrint = "Libre";
-                    } else if ("O".equals(readMessage)) {
+                    } else if (COMANDO_ESTADO_OCUPADO.equals(readMessage)) {
                         dataInPrint = "Ocupado";
-                    } else if ("S".equals(readMessage)){
+                    } else if (COMANDO_ESTADO_SOLICITUD_LIMPIEZA.equals(readMessage)){
                         dataInPrint = "Pendiente";
-                    } else if ("P".equals(readMessage)){
+                    } else if (COMANDO_ESTADO_PENDIENTE_LIMPIEZA.equals(readMessage)){
                         dataInPrint = "Pendiente";
-                    } else if ("E".equals(readMessage)){
+                    } else if (COMANDO_ESTADO_EN_LIMPIEZA.equals(readMessage)){
                         dataInPrint = "En Limpieza";
                     }
 
