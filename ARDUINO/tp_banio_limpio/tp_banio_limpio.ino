@@ -10,6 +10,12 @@ const int colorR = 255;
 const int colorG = 0;
 const int colorB = 0;
 
+const char COMANDO_ESTADO_OCUPADO = 'O';
+const char COMANDO_SOLICITUD_LIMPIEZA = 'S';
+const char COMANDO_ESTADO_LIBRE = 'L';
+const char COMANDO_ESTADO_PENDIENTE_DE_LIMPIEZA = 'P';
+const char COMANDO_ESTADO_EN_LIMPIEZA = 'E';
+
 
 // indica cada cuanto cambia el nivel de suciedad 
 #define GAP 205
@@ -390,7 +396,7 @@ void maquinaDeEstados()
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1," ---       ");
                 log("ESTADO_LIBRE","EVENTO_ENTRA_PERSONA");
                 estadoActual = OCUPADO;
-                miBT.write('O');
+                miBT.write(COMANDO_ESTADO_OCUPADO);
                 tipoEvento = CONTINUAR;
                 break;
               case SOLICITUD_LIMPIEZA:
@@ -402,7 +408,7 @@ void maquinaDeEstados()
                 
                 //BLUETH
                 // if (miBT.available())     // si hay informacion disponible desde el miBT
-                miBT.write('S');   // lee monitor serial y envia a Bluetooth
+                miBT.write(COMANDO_SOLICITUD_LIMPIEZA);   // lee monitor serial y envia a Bluetooth
                 
                 break;
               case VARIACION_NIVEL_DE_SUCIEDAD:
@@ -416,7 +422,7 @@ void maquinaDeEstados()
                 estadoActual = LIBRE;
                 break;
               case ENVIAR_ESTADO:
-                miBT.write('L');
+                miBT.write(COMANDO_ESTADO_LIBRE);
                 tipoEvento = CONTINUAR;
                 break;
           }
@@ -429,14 +435,14 @@ void maquinaDeEstados()
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1,nivel_suciedad[estadoAnteriorNivelDeSuciedad]);
                 log("ESTADO_OCUPADO","EVENTO_SALE_PERSONA");
                 estadoActual = LIBRE;
-                miBT.write('L');
+                miBT.write(COMANDO_ESTADO_LIBRE);
                 break;
               case CONTINUAR:
                 //log("ESTADO_OCUPADO","EVENTO_CONTINUAR");
                 estadoActual = OCUPADO;
                 break;
               case ENVIAR_ESTADO:
-                miBT.write('O');
+                miBT.write(COMANDO_ESTADO_OCUPADO);
                 tipoEvento = CONTINUAR;
                 break;
           }
@@ -449,7 +455,7 @@ void maquinaDeEstados()
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1," ---       ");
                 log("ESTADO_PENDIENTE_DE_LIMPIEZA_LIBRE","EVENTO_ENTRA_PERSONA");
                 estadoActual = PENDIENTE_DE_LIMPIEZA_OCUPADO;
-                miBT.write('O');
+                miBT.write(COMANDO_ESTADO_OCUPADO);
                 tipoEvento = CONTINUAR;
                 break;
               case COMENZAR_O_FINALIZAR_LIMPIEZA:
@@ -484,7 +490,7 @@ void maquinaDeEstados()
                 estadoActual = PENDIENTE_DE_LIMPIEZA_LIBRE;
                 break;
               case ENVIAR_ESTADO:
-                miBT.write('P');
+                miBT.write(COMANDO_ESTADO_PENDIENTE_DE_LIMPIEZA);
                 tipoEvento = CONTINUAR;
                 break;
           }
@@ -496,7 +502,7 @@ void maquinaDeEstados()
                 modificarColorLed(CAMBIAR_COLOR_VERDE);
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1,nivel_suciedad[estadoAnteriorNivelDeSuciedad]);
                 log("ESTADO_PENDIENTE_DE_LIMPIEZA_OCUPADO","EVENTO_SALE_PERSONA");
-                miBT.write('L');
+                miBT.write(COMANDO_ESTADO_LIBRE);
                 estadoActual = PENDIENTE_DE_LIMPIEZA_LIBRE;
                 tipoEvento = CONTINUAR;
                 break;
@@ -512,7 +518,7 @@ void maquinaDeEstados()
                 estadoActual = PENDIENTE_DE_LIMPIEZA_OCUPADO;
                 break;
               case ENVIAR_ESTADO:
-                miBT.write('O');
+                miBT.write(COMANDO_ESTADO_OCUPADO);
                 tipoEvento = CONTINUAR;
                 break;
           }
@@ -524,7 +530,7 @@ void maquinaDeEstados()
                 modificarColorLed(CAMBIAR_COLOR_VERDE);
                 log("ESTADO_EN_LIMPIEZA","EVENTO_CONTINUAR");
                 estadoActual = LIBRE;
-                miBT.write('L');
+                miBT.write(COMANDO_ESTADO_LIBRE);
                 tipoEvento = CONTINUAR;
                 break;
               case VARIACION_NIVEL_DE_SUCIEDAD:
@@ -538,7 +544,7 @@ void maquinaDeEstados()
                 estadoActual = EN_LIMPIEZA;
                 break;
               case ENVIAR_ESTADO:
-                miBT.write('E');
+                miBT.write(COMANDO_ESTADO_EN_LIMPIEZA);
                 tipoEvento = CONTINUAR;
                 break;                
           }
