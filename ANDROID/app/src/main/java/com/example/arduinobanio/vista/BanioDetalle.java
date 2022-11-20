@@ -25,12 +25,6 @@ import java.util.Objects;
 
 public class BanioDetalle extends AppCompatActivity implements ContractBanioDetalle.View {
 
-    // String for MAC address del Hc05
-    private static String address = null;
-
-    private BluetoothAdapter btAdapter = null;
-    private BluetoothSocket btSocket = null;
-
     private ContractBanioDetalle.Presenter presenter;
 
     private Button btnIniciarLimpieza;

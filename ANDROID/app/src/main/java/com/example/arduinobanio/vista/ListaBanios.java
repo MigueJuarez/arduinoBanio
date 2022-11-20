@@ -18,9 +18,6 @@ import java.util.Objects;
 
 public class ListaBanios extends AppCompatActivity {
 
-    // String for MAC address del Hc05
-    private static String address = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

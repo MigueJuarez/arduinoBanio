@@ -43,14 +43,7 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
     private Button btnEmparejar; //seria para ver los dispositivos emparejados
     private Button btnVerBanios;
 
-    // String for MAC address del Hc05
-    private static String address = null;
-
     private ContractWelcome.Presenter presenter;
-
-    private ArrayList<BluetoothDevice> mDeviceList = new ArrayList<BluetoothDevice>();
-
-    private BluetoothAdapter mBluetoothAdapter;
 
     private SensorManager sensorManager;
     private Sensor accelerometer;

@@ -15,9 +15,6 @@ import com.example.arduinobanio.thread.ThreadAsyncTaskBanioListFiltrada;
 
 public class ListaBaniosFiltrada extends AppCompatActivity {
 
-    // String for MAC address del Hc05
-    private static String address = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
