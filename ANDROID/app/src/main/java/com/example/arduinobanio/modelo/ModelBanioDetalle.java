@@ -53,16 +53,18 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
         try {
             btSocket = createBluetoothSocket(device);
         } catch (IOException e) {
-            callBackToViewPresenter.showMsg( "La creacción del Socket 1 fallo");
+            callBackToViewPresenter.showMsg( "La creacción del Socket fallo");
         }
         // Establish the Bluetooth socket connection.
         try {
             if (!btSocket.isConnected()) {
                 btSocket.connect();
             }
-            callBackToViewPresenter.showMsg( "La conexion del Socket 2 se realizo correctamente");
+            callBackToViewPresenter.showMsg( "La conexion del Socket se realizo correctamente");
+
+            startComunicacion();
         } catch (IOException e) {
-            callBackToViewPresenter.showMsg( "La conexion del Socket 2 fallo");
+            callBackToViewPresenter.showMsg( "Verificar sincronizacion con el disp. Bluetooth");
             try {
                 btSocket.close();
             } catch (IOException e2) {
@@ -70,7 +72,6 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
             }
         }
 
-        startComunicacion();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.S)
