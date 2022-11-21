@@ -27,8 +27,6 @@ public class ListaBanios extends AppCompatActivity {
     }
 
     @Override
-    //Cada vez que se detecta el evento OnResume se establece la comunicacion con el HC05, creando un
-    //socketBluethoot
     public void onResume() {
         super.onResume();
     }

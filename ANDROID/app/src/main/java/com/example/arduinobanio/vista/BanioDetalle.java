@@ -47,7 +47,6 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
         presenter.sendObtenerEstado();
     }
 
-    //Cada vez que se detecta el evento OnResume se establece la comunicacion con el HC05, creando un socketBluethoot
     @Override
     public void onResume() {
         super.onResume();

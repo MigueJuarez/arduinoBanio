@@ -39,11 +39,9 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
     private final String COMANDO_ESTADO_PENDIENTE_LIMPIEZA = "P";
     private final String COMANDO_ESTADO_EN_LIMPIEZA = "E";
 
-    // SPP UUID service  - Funciona en la mayoria de los dispositivos
-
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-    final int handlerState = 0; //used to identify handler message
+    final int handlerState = 0;
 
     private CallBackToView callBackToViewPresenter;
 
@@ -55,13 +53,12 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
     @Override
     public void establecerConexionDevice(BluetoothDevice device) {
 
-        //se realiza la conexion del Bluethoot crea y se conectandose a atraves de un socket
         try {
             btSocket = createBluetoothSocket(device);
         } catch (IOException e) {
             callBackToViewPresenter.showMsg( "La creacción del Socket fallo");
         }
-        // Establish the Bluetooth socket connection.
+
         try {
             if (!btSocket.isConnected()) {
                 btSocket.connect();
@@ -74,7 +71,7 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
             try {
                 btSocket.close();
             } catch (IOException e2) {
-                //insert code to deal with this
+
             }
         }
 
@@ -99,19 +96,19 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
 
         for (String permiso : permissions) {
             if (ContextCompat.checkSelfPermission(activity.getApplicationContext() , permiso) != PackageManager.PERMISSION_GRANTED) {
-                // Permiso no aceptado por el momento
+
                 if (DEBUGGER_ENABLED){
                     callBackToViewPresenter.showMsg("Permiso " + permiso +  " no aceptado por el momento");
                 }
-                listPermissionsNeeded.add(permiso); // agrego el permiso para hacer el requestPermissions
+                listPermissionsNeeded.add(permiso);
             } else {
-                // Ya tenemos los permisos
+
                 if (DEBUGGER_ENABLED){
                     callBackToViewPresenter.showMsg("Ya tenemos permiso de " + permiso);
                 }
             }
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permiso)) {
-                // Permisos rechazados, aceptarlos desde ajustes
+
                 if (DEBUGGER_ENABLED){
                     callBackToViewPresenter.showMsg("Permiso " + permiso + "debe otorgarse desde Ajustes");
                 }
@@ -119,28 +116,13 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
         }
 
         if (listPermissionsNeeded.size() > 0){
-            // Solicito los permisos que me faltan
+
             ActivityCompat.requestPermissions(activity, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 123);
         }
 
-        /*
-        if (ContextCompat.checkSelfPermission(activity.getApplicationContext() , Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
-            // Permiso no aceptado por el momento
-            presenter.showMsg("Permiso no aceptado por el momento");
-        } else {
-            // Ya tenemos los permisos
-            presenter.showMsg("Ya tenemos los permisos");
-        }
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.BLUETOOTH)) {
-            // Permisos rechazados, aceptarlos desde ajustes
-        } else {
-            ActivityCompat.requestPermissions(activity, Arrays.asList(Manifest.permission.BLUETOOTH).toArray(new String[1]), 123);
-        }*/
     }
 
     private void startComunicacion() {
-        //Una establecida la conexion con el Hc05 se crea el hilo secundario, el cual va a recibir
-        // los datos de Arduino atraves del bluethoot
         Handler hand = Handler_Msg_Hilo_Principal();
         mConnectedThread = new ConnectedThread(btSocket, hand);
         mConnectedThread.start();
@@ -157,29 +139,23 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
 
     public void cerrarConexion() {
         try {
-            //Don't leave Bluetooth sockets open when leaving activity
             btSocket.close();
         } catch (IOException e2) {
-            //insert code to deal with this
         }
     }
 
-    //Metodo que crea el socket bluethoot
     @SuppressLint("MissingPermission")
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
         return  device.createInsecureRfcommSocketToServiceRecord(BTMODULEUUID);
     }
 
-    //Handler que permite mostrar datos en el Layout al hilo secundario
     private Handler Handler_Msg_Hilo_Principal ()
     {
         return new Handler(Looper.getMainLooper()) {
             public void handleMessage(android.os.Message msg)
             {
-                //si se recibio un msj del hilo secundario
                 if (msg.what == handlerState)
                 {
-                    //voy concatenando el msj
                     String readMessage = (String) msg.obj;
                     recDataString.append(readMessage);
 
@@ -205,7 +181,6 @@ public class ModelBanioDetalle implements ContractBanioDetalle.Model {
 
     @Override
     public BluetoothDevice detectOnePairDevice() {
-        //Se crea un adaptador para poder manejar el bluethoot del celular
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();

@@ -18,7 +18,7 @@ public class ModelWelcome implements ContractWelcome.Model {
 
     private CallBackToView callBackToViewPresenter;
 
-    private static final float SHAKE_THRESHOLD = 5.25f; // m/S**2
+    private static final float SHAKE_THRESHOLD = 5.25f;
     private static final int MIN_TIME_BETWEEN_SHAKES_MILLISECS = 1000;
     private long mLastShakeTime;
 
@@ -40,7 +40,6 @@ public class ModelWelcome implements ContractWelcome.Model {
                 double acceleration = Math.sqrt(Math.pow(x, 2) +
                         Math.pow(y, 2) +
                         Math.pow(z, 2)) - SensorManager.GRAVITY_EARTH;
-                //this.showMsg("Acceleration is " + acceleration + "m/s^2");
 
                 if (acceleration > SHAKE_THRESHOLD) {
                     mLastShakeTime = curTime;
@@ -53,15 +52,11 @@ public class ModelWelcome implements ContractWelcome.Model {
 
     @Override
     public void isEnableBLT() {
-        //Se crea un adaptador para poder manejar el bluethoot del celular
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        //se determina si existe bluethoot en el celular
         if (mBluetoothAdapter != null)
         {
-            //si el celular soporta bluethoot, se definen los listener para los botones de la activity
 
-            //se determina si esta activado el bluethoot
             if (mBluetoothAdapter.isEnabled())
             {
                 if (DEBUGGER_ENABLED){
