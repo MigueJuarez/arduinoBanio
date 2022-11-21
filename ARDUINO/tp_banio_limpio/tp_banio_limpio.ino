@@ -1,8 +1,7 @@
 #include <Wire.h>
 #include "rgb_lcd.h"
 
-#include <SoftwareSerial.h> // libreria que permite establecer pines digitales
-                            // para comunicacion serie
+#include <SoftwareSerial.h>
 
 rgb_lcd lcd;
 
@@ -11,23 +10,24 @@ const int colorG = 0;
 const int colorB = 0;
 
 const char COMANDO_ESTADO_OCUPADO = 'O';
-const char COMANDO_SOLICITUD_LIMPIEZA = 'S';
 const char COMANDO_ESTADO_LIBRE = 'L';
 const char COMANDO_ESTADO_PENDIENTE_DE_LIMPIEZA = 'P';
 const char COMANDO_ESTADO_EN_LIMPIEZA = 'E';
 
+const char COMANDO_SOLICITUD_LIMPIEZA = 'S';
+const char COMANDO_ENVIAR_ESTADO = 'E';
+const char COMANDO_INICIAR_LIMPIEZA = 'I';
+const char COMANDO_FINALIZAR_LIMPIEZA = 'F';
 
-// indica cada cuanto cambia el nivel de suciedad 
 #define GAP 205
 
-// pines de los sensores
 #define POTE A1
 #define SWITCH 3
 #define SOLICITAR_LIMPIEZA 13
 #define COMENZAR_LIMPIEZA 2
 #define ENVIAR_ESTADO 14
 
-//pines de los actuadores
+
 #define COLORRED 11
 #define COLORBLUE 12
 #define COLORGREEN 10
@@ -38,22 +38,22 @@ const char COMANDO_ESTADO_EN_LIMPIEZA = 'E';
 #define DB6 5 
 #define DB7 4
 
-//macros para indicar al color que quiero cambiar 
+
 #define CAMBIAR_COLOR_VERDE 0
 #define CAMBIAR_COLOR_ROJO 1
 #define CAMBIAR_COLOR_AZUL 2
 
-//tiempo de visualizacion de mensaje en display LCD
+
 #define TIEMPO_MENSAJE 1000
 
-//estados posibles
+
 #define LIBRE 0
 #define OCUPADO 1
 #define PENDIENTE_DE_LIMPIEZA_LIBRE 2
 #define PENDIENTE_DE_LIMPIEZA_OCUPADO 3
 #define EN_LIMPIEZA 4
 
-//eventos posibles
+
 #define ENTRA_PERSONA 1
 #define SALE_PERSONA 0
 #define SOLICITUD_LIMPIEZA 2
@@ -62,14 +62,12 @@ const char COMANDO_ESTADO_EN_LIMPIEZA = 'E';
 #define FIN_TIEMPO_MENSAJE 5
 #define VARIACION_NIVEL_DE_SUCIEDAD 6
 
-/* estados posibles para el temporizador del mensaje 
- "sol. enviada" o "sol. ya enviada" del display LCD */
+
 #define ACTIVADO 1
 #define DESACTIVADO 0
 
 #define VALOR_INICIAL -1
 
-//indican sobre qué posicion se  desea escribir en el display LCD
 #define COLUMNA_MSJ_FILA1 5
 #define COLUMNA_MSJ_FILA2 0
 #define FILA1 0
@@ -77,7 +75,7 @@ const char COMANDO_ESTADO_EN_LIMPIEZA = 'E';
 
 #define LOG
 
-SoftwareSerial miBT(6, 7);  // pin 6 como RX, pin 7 como TX
+SoftwareSerial miBT(6, 7);
 
 String nivel_suciedad[] = {{"IMPECABLE  "},{"LIMPIO     "},{"MODERADO   "},{"SUCIO      "},{"MUY SUCIO  "}};
 
@@ -120,8 +118,6 @@ void log(int val)
   #endif
 }
 
-/*consiste en modificar el color del led a algún color valido
-es decir, ROJO o VERDE o AZUL*/
 void modificarColorLed(int color)
 {
   if(color == CAMBIAR_COLOR_VERDE)
@@ -132,8 +128,7 @@ void modificarColorLed(int color)
     colorLed(0,255,0);
 }
 
-/*esta funcion consiste en enviar  un valor entre 0 y 255 
-para indicar en color del led deseado*/
+
 void colorLed(int red, int blue, int green)
 {
     analogWrite(COLORRED,red);
@@ -141,8 +136,6 @@ void colorLed(int red, int blue, int green)
     analogWrite(COLORGREEN,green);
 }
 
-/*consiste en realizar la lectura del potenciometro
-para verificar si se generó un evento*/
 int verificarEventoPotenciometro()
 {
   hayEvento = 0;
@@ -154,13 +147,10 @@ int verificarEventoPotenciometro()
         estadoAnteriorNivelDeSuciedad = estadoActualNivelDeSuciedad;
       hayEvento = 1;
     }
-   // log("verificando potenciometro");
-   // log(estadoActualNivelDeSuciedad);
+
     return hayEvento;
 }
 
-/*consiste en realizar la lectura del interruptor 
-deslizante para verificar si se generó un evento*/
 int verificarEventoSensorSwitch()
 { 
   hayEvento = 0;
@@ -171,13 +161,10 @@ int verificarEventoSensorSwitch()
     tipoEvento = estadoSensor;
     hayEvento = 1; 
   }
-  //log("verificando switch");
-  //log(estadoSensor);
+
   return hayEvento;
 }
 
-/*consiste en realizar la lectura del pulsador para verificar
-si se generó un evento*/
 int verficarEventoPulsadorSolicitudDeLimpieza()
 {
   hayEvento = 0; 
@@ -191,13 +178,10 @@ int verficarEventoPulsadorSolicitudDeLimpieza()
     hayEvento = 1;
   }
   estadoAnteriorPulsadorSolicitarLimpieza = estadoSensor;
-    //log("verificando pulsador de solicitud de limpieza");
-    //log(estadoSensor);
+
   return hayEvento;
 }
 
-/*consiste en realizar la lectura del pulsador para verificar
-si se generó un evento*/
 int verificarEventoPulsadorDeLimpieza()
 {
   hayEvento = 0;
@@ -208,95 +192,35 @@ int verificarEventoPulsadorDeLimpieza()
     hayEvento = 1;
   }
   estadoAnteriorPulsadorComenzarLimpieza = estadoSensor;
-  //log("verificando pulsador de iniciar limpieza");
-   // log(estadoSensor);
-    return hayEvento;
-}
-
-/*
-int leerBTH()
-{
-  char msgeBT;
-    
-  if (miBT.available())
-  {
-    msgeBT = char(miBT.read());
-    log("Llego bien la letra ");
-    log((char)msgeBT);
-
-    
-  }
-  
-  hayEvento = (enviarEstadoActual(msgeBT));
-  hayEvento = (verificarEventoBTELimpieza(msgeBT));
-  
   return hayEvento;
-}*/
-
+}
 
 int leerBTH()
 {
   char msgeBT = '0';
     
-  if (miBT.available())       // si hay informacion disponible desde modulo
+  if (miBT.available())
   {
     msgeBT = char(miBT.read());
-    log("Llego bien la letra ");
     log(msgeBT);
   }
 
  hayEvento = 0;
   
-  if (msgeBT == 'I' || msgeBT == 'F')
+  if (msgeBT == COMANDO_INICIAR_LIMPIEZA || msgeBT == COMANDO_FINALIZAR_LIMPIEZA)
   {
-    //log("Me llego una i o una f");
     tipoEvento = COMENZAR_O_FINALIZAR_LIMPIEZA;
     hayEvento = 1;
   }
-  else if (msgeBT == 'E')
+  else if (msgeBT == COMANDO_ENVIAR_ESTADO)
   {
     tipoEvento = ENVIAR_ESTADO;
     hayEvento = 1;
-    //log("Me llego una e");
   }
   
   return hayEvento;
 }
 
-
-/*consiste en realizar la lectura del Modulo BTE para verificar
-si se generó un evento*/
-/*int verificarEventoBTELimpieza(char msgeBT)
-{
-  hayEvento = 0;
-  
-  if (msgeBT == 'I' || msgeBT == 'F')
-  {
-    tipoEvento = COMENZAR_O_FINALIZAR_LIMPIEZA;
-    hayEvento = 1;
-    log("Me llego una i o una f");
-  }
-  
-  return hayEvento;
-}*/
-
-/*esta funcion envia el estado actual del baño*/
-/*int enviarEstadoActual(char msgeBT)
-{
-  hayEvento = 0;
-  
-  if (msgeBT == 'E')
-  {
-    tipoEvento = ENVIAR_ESTADO;
-    hayEvento = 1;
-    log("Me llego una e");
-  }
-  
-  return hayEvento;
-}*/
-
-/*esta funcion toma los eventos provenientes de cada
-uno de los sensores*/
 void tomarEvento()
 {
   if(temporizador)
@@ -326,29 +250,23 @@ void tomarEvento()
   tipoEvento = CONTINUAR;
 }
 
-/*esta funcion consiste en realizar una escritura de cierto
-mensaje en el display LCD en la posicion indicada*/
+
 void escribirDisplayLCD(int columna,int fila,String mensaje)
 {
   lcd.setCursor(columna,fila);
   lcd.print(mensaje);
 }
 
-/*esta funcion consiste en incializar el display LCD, definir
-los pines de entrada y salida y determinar el estado inicial
-del sistema*/
 void configuracionDeValores()
 {
     Serial.begin(9600);
-      //BLUETH
-    miBT.begin(9600);    // comunicacion serie entre Arduino y el modulo a 9600 bps
 
-// set up the LCD's number of columns and rows:
+    miBT.begin(9600);
+
     lcd.begin(16, 2);
 
     lcd.setRGB(colorR, colorG, colorB);
 
-    // Print a message to the LCD.
     lcd.print("DIRT: ---");     
   
     pinMode(SWITCH,INPUT);
@@ -369,23 +287,10 @@ void configuracionDeValores()
     estadoAnteriorNivelDeSuciedad = VALOR_INICIAL;
 }
 
-/*representa la maquina de estados donde se visualizan los 
-estados, los eventos de cada estado y el impacto que genera
-cada evento sobre el sistema*/
 void maquinaDeEstados()
 {
   tomarEvento();
 
-  /*
-  if (hayEvento)
-  {
-    log("Mostrar cambio evento : ");
-    log(estadoActual);
-  }
-  
-  if (hayEvento)
-    log(tipoEvento);
-    */
   switch(estadoActual)
   {
     case LIBRE:
@@ -394,7 +299,6 @@ void maquinaDeEstados()
               case ENTRA_PERSONA:
                 modificarColorLed(CAMBIAR_COLOR_ROJO);
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1," ---       ");
-                log("ESTADO_LIBRE","EVENTO_ENTRA_PERSONA");
                 estadoActual = OCUPADO;
                 miBT.write(COMANDO_ESTADO_OCUPADO);
                 tipoEvento = CONTINUAR;
@@ -403,22 +307,17 @@ void maquinaDeEstados()
                 escribirDisplayLCD(COLUMNA_MSJ_FILA2,FILA2,"SOL. ENVIADA   ");
                 temporizador = ACTIVADO;
                 tiempoDesde = millis();
-                log("ESTADO_LIBRE","EVENTO_SOLICITUD_LIMPIEZA");
                 estadoActual = PENDIENTE_DE_LIMPIEZA_LIBRE;
-                
-                //BLUETH
-                // if (miBT.available())     // si hay informacion disponible desde el miBT
-                miBT.write(COMANDO_SOLICITUD_LIMPIEZA);   // lee monitor serial y envia a Bluetooth
+
+                miBT.write(COMANDO_SOLICITUD_LIMPIEZA);
                 
                 break;
               case VARIACION_NIVEL_DE_SUCIEDAD:
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1,nivel_suciedad[estadoAnteriorNivelDeSuciedad]);
-                //log("ESTADO_LIBRE","EVENTO_VARIACION_NIVEL_DE_SUCIEDAD");
                 estadoActual = LIBRE;
                 tipoEvento = CONTINUAR;
                 break;
               case CONTINUAR:
-                //log("ESTADO_LIBRE","EVENTO_CONTINUAR");
                 estadoActual = LIBRE;
                 break;
               case ENVIAR_ESTADO:
@@ -433,12 +332,10 @@ void maquinaDeEstados()
               case SALE_PERSONA:
                 modificarColorLed(CAMBIAR_COLOR_VERDE);
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1,nivel_suciedad[estadoAnteriorNivelDeSuciedad]);
-                log("ESTADO_OCUPADO","EVENTO_SALE_PERSONA");
                 estadoActual = LIBRE;
                 miBT.write(COMANDO_ESTADO_LIBRE);
                 break;
               case CONTINUAR:
-                //log("ESTADO_OCUPADO","EVENTO_CONTINUAR");
                 estadoActual = OCUPADO;
                 break;
               case ENVIAR_ESTADO:
@@ -453,14 +350,12 @@ void maquinaDeEstados()
               case ENTRA_PERSONA:
                 modificarColorLed(CAMBIAR_COLOR_ROJO);
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1," ---       ");
-                log("ESTADO_PENDIENTE_DE_LIMPIEZA_LIBRE","EVENTO_ENTRA_PERSONA");
                 estadoActual = PENDIENTE_DE_LIMPIEZA_OCUPADO;
                 miBT.write(COMANDO_ESTADO_OCUPADO);
                 tipoEvento = CONTINUAR;
                 break;
               case COMENZAR_O_FINALIZAR_LIMPIEZA:
                 modificarColorLed(CAMBIAR_COLOR_AZUL);
-                log("ESTADO_PENDIENTE_DE_LIMPIEZA_LIBRE","EVENTO_COMENZAR_O_FINALIZAR_LIMPIEZA");
                 estadoActual = EN_LIMPIEZA;
                 tipoEvento = CONTINUAR;
                 break;
@@ -468,25 +363,21 @@ void maquinaDeEstados()
                 escribirDisplayLCD(COLUMNA_MSJ_FILA2,FILA2,"SOL. YA ENVIADA");
                 temporizador = ACTIVADO;
                 tiempoDesde = millis();
-                log("ESTADO_PENDIENTE_DE_LIMPIEZA_LIBRE","EVENTO_SOLICITUD_LIMPIEZA");
                 estadoActual = PENDIENTE_DE_LIMPIEZA_LIBRE;
                 tipoEvento = CONTINUAR;
                 break;
               case FIN_TIEMPO_MENSAJE:
                 temporizador = DESACTIVADO;
                 escribirDisplayLCD(COLUMNA_MSJ_FILA2,FILA2,"               ");
-                log("ESTADO_PENDIENTE_DE_LIMPIEZA_LIBRE","EVENTO_FIN_TIEMPO_MENSAJE");
                 estadoActual = PENDIENTE_DE_LIMPIEZA_LIBRE;
                 tipoEvento = CONTINUAR;
                 break;
               case VARIACION_NIVEL_DE_SUCIEDAD:
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1,nivel_suciedad[estadoAnteriorNivelDeSuciedad]);
-                //log("ESTADO_PENDIENTE_DE_LIMPIEZA_LIBRE","EVENTO_VARIACION_NIVEL_DE_SUCIEDAD");
                 estadoActual = PENDIENTE_DE_LIMPIEZA_LIBRE;
                 tipoEvento = CONTINUAR;
                 break;
               case CONTINUAR:
-                //log("ESTADO_PENDIENTE_DE_LIMPIEZA_LIBRE","EVENTO_CONTINUAR");
                 estadoActual = PENDIENTE_DE_LIMPIEZA_LIBRE;
                 break;
               case ENVIAR_ESTADO:
@@ -501,7 +392,6 @@ void maquinaDeEstados()
               case SALE_PERSONA:
                 modificarColorLed(CAMBIAR_COLOR_VERDE);
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1,nivel_suciedad[estadoAnteriorNivelDeSuciedad]);
-                log("ESTADO_PENDIENTE_DE_LIMPIEZA_OCUPADO","EVENTO_SALE_PERSONA");
                 miBT.write(COMANDO_ESTADO_LIBRE);
                 estadoActual = PENDIENTE_DE_LIMPIEZA_LIBRE;
                 tipoEvento = CONTINUAR;
@@ -509,12 +399,10 @@ void maquinaDeEstados()
               case FIN_TIEMPO_MENSAJE:
                 temporizador = DESACTIVADO;
                 escribirDisplayLCD(COLUMNA_MSJ_FILA2,FILA2,"               ");
-                log("ESTADO_PENDIENTE_DE_LIMPIEZA_OCUPADO","EVENTO_FIN_TIEMPO_MENSAJE");
                 estadoActual = PENDIENTE_DE_LIMPIEZA_OCUPADO;
                 tipoEvento = CONTINUAR;
                 break;
               case CONTINUAR:
-                //log("ESTADO_PENDIENTE_DE_LIMPIEZA_OCUPADO","EVENTO_CONTINUAR");
                 estadoActual = PENDIENTE_DE_LIMPIEZA_OCUPADO;
                 break;
               case ENVIAR_ESTADO:
@@ -528,19 +416,16 @@ void maquinaDeEstados()
           {
               case COMENZAR_O_FINALIZAR_LIMPIEZA:
                 modificarColorLed(CAMBIAR_COLOR_VERDE);
-                log("ESTADO_EN_LIMPIEZA","EVENTO_CONTINUAR");
                 estadoActual = LIBRE;
                 miBT.write(COMANDO_ESTADO_LIBRE);
                 tipoEvento = CONTINUAR;
                 break;
               case VARIACION_NIVEL_DE_SUCIEDAD:
                 escribirDisplayLCD(COLUMNA_MSJ_FILA1,FILA1,nivel_suciedad[estadoAnteriorNivelDeSuciedad]);
-                log("ESTADO_EN_LIMPIEZA","EVENTO_VARIACION_NIVEL_DE_SUCIEDAD");
                 estadoActual = EN_LIMPIEZA;
                 tipoEvento = CONTINUAR;
                 break;
               case CONTINUAR:
-                //log("ESTADO_EN_LIMPIEZA","EVENTO_CONTINUAR");
                 estadoActual = EN_LIMPIEZA;
                 break;
               case ENVIAR_ESTADO:
