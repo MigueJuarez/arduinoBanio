@@ -40,17 +40,9 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
 
     private TextView textTitulo;
     private TextView textPresentacion;
-    private Button btnEmparejar; //seria para ver los dispositivos emparejados
     private Button btnVerBanios;
 
-    // String for MAC address del Hc05
-    private static String address = null;
-
     private ContractWelcome.Presenter presenter;
-
-    private ArrayList<BluetoothDevice> mDeviceList = new ArrayList<BluetoothDevice>();
-
-    private BluetoothAdapter mBluetoothAdapter;
 
     private SensorManager sensorManager;
     private Sensor accelerometer;
@@ -79,7 +71,6 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
 
         startSensor();
 
-        Log.i("Ejecuto","Ejecuto onCreate");
     }
 
     private void startSensor() {
@@ -87,12 +78,10 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
-    //Metodo que chequea si estan habilitados los permisos
     private  boolean checkPermissions() {
         int result;
         List<String> listPermissionsNeeded = new ArrayList<>();
 
-        //Se chequea si la version de Android es menor a la 6
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
@@ -118,7 +107,6 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
     @Override
     protected void onStart()
     {
-        Log.i("Ejecuto","Ejecuto Onstart");
         super.onStart();
     }
 
@@ -127,7 +115,6 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
     {
         super.onResume();
 
-        // registro la activity como listener del sensor
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
         presenter.isEnableBLT();
@@ -135,7 +122,6 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
 
     @Override
     protected void onPause() {
-        Log.i("Ejecuto","Ejecuto OnPause");
         super.onPause();
         sensorManager.unregisterListener(this);
     }
@@ -143,20 +129,16 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("Ejecuto","Ejecuto OnStop");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-
-        Log.i("Ejecuto","Ejecuto OnRestart");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("Ejecuto","Ejecuto OnDestroy");
     }
 
 
@@ -165,7 +147,7 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
         @Override
         public void onClick(View view) {
             switch (view.getId()){
-                case R.id.verBanios: //verBaños
+                case R.id.verBanios:
                     goToListaBanios(view);
                     break;
             }
@@ -198,13 +180,10 @@ public class Welcome extends AppCompatActivity implements ContractWelcome.View, 
         showToast(msge);
     }
 
-    /**
-     * Sensor event listener
-     */
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // this.showMsg("onAccuracyChanged");
+
     }
 
 

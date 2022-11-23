@@ -35,49 +35,39 @@ public class MainActivity extends AppCompatActivity {
         this.usuario = (EditText) findViewById(R.id.editTextTextPersonName);
         this.contrasenia = (EditText) findViewById(R.id.editTextTextPassword);
 
-
         ingresar.setOnClickListener(ingresarListener);
-
-        Log.i("Ejecuto","Ejecuto onCreate");
     }
 
     @Override
     protected void onStart()
     {
-        Log.i("Ejecuto","Ejecuto Onstart");
         super.onStart();
     }
 
     @Override
     protected void onResume()
     {
-        Log.i("Ejecuto","Ejecuto OnResume");
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        Log.i("Ejecuto","Ejecuto OnPause");
         super.onPause();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("Ejecuto","Ejecuto OnStop");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-
-        Log.i("Ejecuto","Ejecuto OnRestart");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("Ejecuto","Ejecuto OnDestroy");
     }
 
    private View.OnClickListener ingresarListener = new View.OnClickListener() {
@@ -86,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
        }
    };
 
-    // Metodo boton siguiente donde se realiza la transicion a
     private void goToWelcome(View view) {
         Intent goToHome = new Intent(this, Welcome.class);
         startActivity(goToHome);

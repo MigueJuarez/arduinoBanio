@@ -62,11 +62,6 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
     }
 
     @Override
-    public Handler Handler_Msg_Hilo_Principal() {
-        return model.Handler_Msg_Hilo_Principal();
-    }
-
-    @Override
     public void pedirPermisos(Activity activity) {
         if (Objects.nonNull(view)) {
             model.pedirPermisos(activity);
@@ -89,4 +84,8 @@ public class PresentBanioDetalle implements ContractBanioDetalle.Presenter,  Con
 
     }
 
+    @Override
+    public void deleteSocket() {
+        model.deleteSocket();
+    }
 }

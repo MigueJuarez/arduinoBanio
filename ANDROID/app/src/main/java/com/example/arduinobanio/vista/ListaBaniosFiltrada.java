@@ -15,9 +15,6 @@ import com.example.arduinobanio.thread.ThreadAsyncTaskBanioListFiltrada;
 
 public class ListaBaniosFiltrada extends AppCompatActivity {
 
-    // String for MAC address del Hc05
-    private static String address = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +24,7 @@ public class ListaBaniosFiltrada extends AppCompatActivity {
     }
 
     @Override
-    //Cada vez que se detecta el evento OnResume se establece la comunicacion con el HC05, creando un
-    //socketBluethoot
+
     public void onResume() {
         super.onResume();
     }

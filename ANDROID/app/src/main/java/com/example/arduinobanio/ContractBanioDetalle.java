@@ -18,8 +18,9 @@ public interface ContractBanioDetalle {
         BluetoothDevice detectOnePairDevice();
         void establecerConexionDevice( BluetoothDevice device);
         void pedirPermisos( Activity activity);
-        Handler Handler_Msg_Hilo_Principal ();
         void sendMsg(String msg);
+
+        void deleteSocket();
 
         interface CallBackToView {
             void actualizarEstado(String estado);
@@ -30,12 +31,12 @@ public interface ContractBanioDetalle {
 
     interface Presenter {
         void showMsg(String msg);
-        Handler Handler_Msg_Hilo_Principal();
         void pedirPermisos(Activity activity);
         void sendObtenerEstado();
         void sendIniciarLimpieza();
         void sendFinalizarLimpieza();
         void detectOnePairDevice();
+        void deleteSocket();
     }
 
 

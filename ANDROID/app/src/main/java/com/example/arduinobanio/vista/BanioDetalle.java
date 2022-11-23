@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arduinobanio.ContractBanioDetalle;
@@ -24,18 +25,11 @@ import java.util.Objects;
 
 public class BanioDetalle extends AppCompatActivity implements ContractBanioDetalle.View {
 
-    // String for MAC address del Hc05
-    private static String address = null;
-
-    private BluetoothAdapter btAdapter = null;
-    private BluetoothSocket btSocket = null;
-
     private ContractBanioDetalle.Presenter presenter;
 
     private Button btnIniciarLimpieza;
     private Button btnFinalizarLimpieza;
-
-    private Handler bluetoothIn;
+    private TextView txtEstado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +41,15 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
         btnIniciarLimpieza = (Button) findViewById(R.id.button7);
         btnFinalizarLimpieza = (Button) findViewById(R.id.button6);
 
+        txtEstado = (TextView) findViewById(R.id.textView5);
+
         presenter.detectOnePairDevice();
-
-        //defino el Handler de comunicacion entre el hilo Principal  el secundario.
-        //El hilo secundario va a mostrar informacion al layout atraves utilizando indeirectamente a este handler
-        bluetoothIn = presenter.Handler_Msg_Hilo_Principal();
-        //TODO presenter.sendObtenerEstado();
-
+        presenter.sendObtenerEstado();
     }
 
-    //Cada vez que se detecta el evento OnResume se establece la comunicacion con el HC05, creando un socketBluethoot
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     private void showToast(String message) {
@@ -69,24 +58,23 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
 
     public void iniciarLimpieza(View view) {
         presenter.sendIniciarLimpieza();
-        //presenter.sendObtenerEstado();
-        //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
+        presenter.sendObtenerEstado();
     }
 
     public void finalizarLimpieza(View view) {
         presenter.sendFinalizarLimpieza();
-
-        //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
+        presenter.sendObtenerEstado();
     }
 
     public void goToListaBanios(View view) {
+        presenter.deleteSocket();
         Intent goToList = new Intent(this, ListaBanios.class);
         startActivity(goToList);
     }
 
     @Override
     public void actualizarEstado(String estado) {
-        //TODO FALTA ACTUALIZAR ESTADO EN LA VIEW
+        txtEstado.setText(estado);
     }
 
     @Override
@@ -115,4 +103,9 @@ public class BanioDetalle extends AppCompatActivity implements ContractBanioDeta
         btnFinalizarLimpieza.setTextColor(Color.WHITE);
     }
 
+    @Override
+    public void onDestroy() {
+        presenter.deleteSocket();
+        super.onDestroy();
+    }
 }
